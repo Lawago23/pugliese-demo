@@ -1,0 +1,4430 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Ristorante Pizzeria Pugliese Mayen | Speisekarte & Vorbestellung</title>
+  <meta name="description" content="Digitale Speisekarte des Ristorante Pizzeria Pugliese in Mayen. Traditionelle Steinofen-Pizza, hausgemachte Pasta, frische Antipasti und feine Spezialitäten vorbestellen.">
+  <meta name="theme-color" content="#0f1115">
+
+  <!-- Google Fonts: Fraunces (Editorial Display Serif) + Plus Jakarta Sans (Readable Modern UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Typography */
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+      /* Calm Slate / Charcoal Palette */
+      --bg-base: #0f1115;
+      --bg-surface: #151820;
+      --bg-elevated: #1d212b;
+      --bg-hover: #262c38;
+      --bg-scrim: rgba(15, 17, 21, 0.88);
+
+      /* ONE Accent Color: Warm Terracotta / Spiced Ember */
+      --accent: #d96b43;
+      --accent-hover: #e4774f;
+      --accent-active: #c55c36;
+      --accent-subtle: rgba(217, 107, 67, 0.12);
+      --accent-border: rgba(217, 107, 67, 0.35);
+      --accent-glow: rgba(217, 107, 67, 0.22);
+      --accent-contrast: #ffffff;
+
+      /* Text Hierarchy */
+      --text-primary: #f6f6f8;
+      --text-secondary: #9da4b0;
+      --text-tertiary: #6b7382;
+      --text-muted: #484f5e;
+
+      /* Borders */
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.16);
+      --border-strong: rgba(255, 255, 255, 0.26);
+
+      /* Radii */
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.55);
+      --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.75);
+
+      --touch-target-min: 44px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      color-scheme: dark;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      background-color: var(--bg-base);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Subtle Analog Film Grain */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* Scroll progress bar at top */
+    .scroll-progress-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      transform-origin: left;
+      transform: scaleX(0);
+      z-index: 150;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Top Global Desktop & Mobile Nav Header */
+    .site-nav-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 80;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 17, 21, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .brand-logo-link {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-logo-name {
+      font-family: var(--font-display);
+      font-size: 1.28rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-logo-name .accent-word {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .brand-logo-city {
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .desktop-nav-links {
+      display: none;
+      align-items: center;
+      gap: 28px;
+    }
+
+    @media (min-width: 900px) {
+      .desktop-nav-links {
+        display: flex;
+      }
+    }
+
+    .nav-link-item {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-link-item:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-link-item.active {
+      color: var(--accent);
+    }
+
+    .header-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-header-cart {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 7px 14px;
+      border-radius: var(--radius-full);
+      color: var(--text-primary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-header-cart:hover {
+      background: var(--bg-hover);
+      border-color: var(--accent-border);
+    }
+
+    .btn-header-cart .cart-pill-count {
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      min-width: 18px;
+      text-align: center;
+    }
+
+    .btn-header-call {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      padding: 7px 14px;
+      border-radius: var(--radius-full);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    @media (min-width: 768px) {
+      .btn-header-call {
+        display: inline-flex;
+      }
+    }
+
+    .btn-header-call:hover {
+      color: var(--text-primary);
+      border-color: var(--border-medium);
+    }
+
+    /* Container for Flagship Site (Wide Responsive) */
+    .app-container {
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ========================================================
+       SCENE 1: CINEMATIC SCROLL-DRIVEN HERO
+       ======================================================== */
+    .hero-runway {
+      position: relative;
+      height: 195vh;
+      min-height: 800px;
+    }
+
+    .hero-sticky-frame {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background-color: var(--bg-base);
+    }
+
+    .hero-media-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero-bg-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 36%;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    .hero-media-scrim {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(
+        circle at 50% 40%,
+        rgba(15, 17, 21, 0.35) 0%,
+        rgba(15, 17, 21, 0.72) 60%,
+        rgba(15, 17, 21, 0.96) 95%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(15, 17, 21, 0.6) 0%,
+        rgba(15, 17, 21, 0.25) 30%,
+        rgba(15, 17, 21, 0.85) 75%,
+        var(--bg-base) 100%
+      );
+    }
+
+    .hero-content-wrap {
+      position: relative;
+      z-index: 2;
+      padding: 0 24px 48px 24px;
+      max-width: 980px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-content-wrap {
+        padding: 0 40px 72px 40px;
+        gap: 26px;
+      }
+    }
+
+    .hero-eyebrow-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+    }
+
+    .hero-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #22c55e;
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      animation: pulse-ring 2.2s infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    .hero-location-text {
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-location-text svg {
+      color: var(--accent);
+    }
+
+    /* Word-by-word reveal headline */
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6.8vw, 4.8rem);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+    }
+
+    .hero-headline-sub {
+      display: block;
+      font-size: clamp(1.1rem, 2.4vw, 1.8rem);
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-top: 10px;
+      line-height: 1.35;
+    }
+
+    .word-wrap {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      margin-right: 0.18em;
+    }
+
+    .hero-word {
+      display: inline-block;
+      transform: translateY(calc(32px * (1 - var(--w-p, 0))));
+      opacity: calc(0.15 + var(--w-p, 0) * 0.85);
+      filter: blur(calc(5px * (1 - var(--w-p, 0))));
+      transition: transform 0.08s ease-out, opacity 0.08s ease-out, filter 0.08s ease-out;
+      will-change: transform, opacity, filter;
+    }
+
+    .hero-word.accent-word {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero-details-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.85rem;
+      color: var(--text-tertiary);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 14px;
+    }
+
+    .hero-fact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-secondary);
+    }
+
+    .hero-fact-item svg {
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hero-actions-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .btn-magnetic {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      min-height: 48px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-ui);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.15s ease-out, background 0.2s ease, border-color 0.2s ease;
+      will-change: transform;
+    }
+
+    .btn-magnetic-primary {
+      background: var(--accent);
+      color: #ffffff;
+      border: 1px solid var(--accent);
+      box-shadow: 0 4px 18px var(--accent-glow);
+    }
+
+    .btn-magnetic-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-magnetic-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-magnetic-secondary:hover {
+      background: rgba(255, 255, 255, 0.11);
+      border-color: var(--border-medium);
+    }
+
+    /* ========================================================
+       SCENE 2: PINNED HORIZONTAL DISH CAROUSEL
+       ======================================================== */
+    .scene-carousel-runway {
+      position: relative;
+      height: 250vh;
+      min-height: 1200px;
+    }
+
+    .scene-carousel-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--bg-base);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .scene-carousel-header {
+      padding: 0 24px 24px 24px;
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    @media (min-width: 1024px) {
+      .scene-carousel-header {
+        padding: 0 40px 32px 40px;
+      }
+    }
+
+    .scene-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .scene-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .scene-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+    }
+
+    .horizontal-track-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 10px 0;
+    }
+
+    .horizontal-track {
+      display: flex;
+      gap: 20px;
+      padding-left: 24px;
+      padding-right: 48px;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      transition: transform 0.08s ease-out;
+    }
+
+    @media (min-width: 1024px) {
+      .horizontal-track {
+        gap: 28px;
+        padding-left: 40px;
+        padding-right: 80px;
+      }
+    }
+
+    .showcase-card {
+      flex: 0 0 290px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+      cursor: pointer;
+    }
+
+    @media (min-width: 600px) {
+      .showcase-card {
+        flex: 0 0 340px;
+      }
+    }
+
+    .showcase-card:hover {
+      border-color: var(--accent-border);
+      transform: translateY(-4px);
+    }
+
+    .showcase-media {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      background: var(--bg-elevated);
+    }
+
+    @media (min-width: 600px) {
+      .showcase-media {
+        height: 230px;
+      }
+    }
+
+    .showcase-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .showcase-card:hover .showcase-media img {
+      transform: scale(1.06);
+    }
+
+    .showcase-tag-chip {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(15, 17, 21, 0.78);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .showcase-body {
+      padding: 18px 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .showcase-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
+
+    .showcase-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-top: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .showcase-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .showcase-price {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .btn-showcase-select {
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-showcase-select:hover {
+      background: var(--accent-hover);
+    }
+
+    .carousel-indicator-bar {
+      padding: 16px 24px 0 24px;
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    @media (min-width: 1024px) {
+      .carousel-indicator-bar {
+        padding: 20px 40px 0 40px;
+      }
+    }
+
+    .track-progress-track {
+      flex: 1;
+      max-width: 240px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .track-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width 0.08s ease-out;
+    }
+
+    .track-hint-label {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+    }
+
+    /* Reduced Motion fallback for Scene 2 */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-word {
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+      }
+      .hero-bg-photo {
+        transform: none !important;
+      }
+      .scene-carousel-runway {
+        height: auto !important;
+        min-height: auto !important;
+      }
+      .scene-carousel-sticky {
+        position: relative !important;
+        height: auto !important;
+        padding: 60px 0 !important;
+      }
+      .horizontal-track-container {
+        overflow-x: auto !important;
+        scrollbar-width: auto;
+      }
+      .horizontal-track {
+        transform: none !important;
+      }
+    }
+
+    /* ========================================================
+       CRAFT & PROVENANCE STORY SECTION
+       ======================================================== */
+    .craft-story-section {
+      padding: 60px 24px;
+      max-width: 1360px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    @media (min-width: 1024px) {
+      .craft-story-section {
+        padding: 80px 40px;
+      }
+    }
+
+    .craft-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .craft-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+      }
+    }
+
+    .craft-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .craft-item-num {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .craft-item-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .craft-item-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ========================================================
+       SCENE 3: MAIN MENU (CATEGORIES, SEARCH, DISH GRID)
+       ======================================================== */
+    .menu-main-section {
+      padding: 40px 24px 100px 24px;
+      max-width: 1360px;
+      margin: 0 auto;
+      scroll-margin-top: 60px;
+    }
+
+    @media (min-width: 1024px) {
+      .menu-main-section {
+        padding: 60px 40px 120px 40px;
+      }
+    }
+
+    /* Sticky Search & Category Bar */
+    .menu-controls-sticky {
+      position: sticky;
+      top: 61px;
+      z-index: 50;
+      background: rgba(15, 17, 21, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      margin: 0 -24px 36px -24px;
+      padding: 14px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    @media (min-width: 1024px) {
+      .menu-controls-sticky {
+        margin: 0 -40px 48px -40px;
+        padding: 16px 40px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .category-scroll-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .category-scroll-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-nav-pill {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      min-height: 38px;
+      transition: all 0.2s ease;
+    }
+
+    .cat-nav-pill svg {
+      color: var(--text-tertiary);
+      transition: color 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .cat-nav-pill:hover {
+      border-color: var(--border-medium);
+      color: var(--text-primary);
+    }
+
+    .cat-nav-pill:hover svg {
+      color: var(--accent);
+    }
+
+    .cat-nav-pill.active {
+      background: var(--accent-subtle);
+      border-color: var(--accent-border);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .cat-nav-pill.active svg {
+      color: var(--accent);
+    }
+
+    .search-filter-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    @media (min-width: 1024px) {
+      .search-filter-wrap {
+        width: auto;
+        min-width: 380px;
+      }
+    }
+
+    .search-input-box {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input-box svg.search-ico {
+      position: absolute;
+      left: 14px;
+      color: var(--text-tertiary);
+      pointer-events: none;
+    }
+
+    .menu-search-input {
+      width: 100%;
+      min-height: 40px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 8px 36px 8px 40px;
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .menu-search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-subtle);
+    }
+
+    .btn-search-clear {
+      position: absolute;
+      right: 8px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .btn-search-clear.visible {
+      display: flex;
+    }
+
+    .diet-filters-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+      margin-bottom: 30px;
+    }
+
+    .diet-filter-chip {
+      flex-shrink: 0;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .diet-filter-chip:hover {
+      border-color: var(--border-medium);
+      color: var(--text-primary);
+    }
+
+    .diet-filter-chip.active {
+      background: var(--accent-subtle);
+      border-color: var(--accent-border);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Category Blocks */
+    .category-group {
+      scroll-margin-top: 135px;
+      margin-bottom: 64px;
+    }
+
+    .category-header-banner {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 24px;
+      height: 160px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+
+    @media (min-width: 768px) {
+      .category-header-banner {
+        height: 190px;
+      }
+    }
+
+    .category-header-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.68);
+    }
+
+    .category-banner-scrim {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(15, 17, 21, 0.2) 0%,
+        rgba(15, 17, 21, 0.78) 60%,
+        rgba(15, 17, 21, 0.96) 100%
+      );
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px 24px;
+    }
+
+    .cat-title-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.015em;
+    }
+
+    .cat-desc-text {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      max-width: 720px;
+      line-height: 1.45;
+    }
+
+    .cat-allergen-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-size: 0.76rem;
+      color: var(--text-tertiary);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .cat-allergen-note svg {
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Dishes Grid (1 Col Mobile, 2 Col Desktop) */
+    .dishes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .dishes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .dishes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+    }
+
+    .dish-card-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      gap: 18px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+      user-select: none;
+    }
+
+    .dish-card-item:hover {
+      background: var(--bg-elevated);
+      border-color: var(--border-medium);
+      transform: translateY(-2px);
+    }
+
+    .dish-thumb-box {
+      width: 104px;
+      height: 104px;
+      flex-shrink: 0;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--bg-elevated);
+    }
+
+    @media (min-width: 600px) {
+      .dish-thumb-box {
+        width: 114px;
+        height: 114px;
+      }
+    }
+
+    .dish-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .dish-card-item:hover .dish-thumb-img {
+      transform: scale(1.06);
+    }
+
+    .dish-content-box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    .dish-title-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .dish-title-h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .diet-badge-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #4ade80;
+      background: rgba(74, 222, 128, 0.1);
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+      margin-top: 4px;
+      display: inline-block;
+    }
+
+    .dish-desc-p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .dish-foot-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .dish-price-text {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .dish-hint-text {
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+    }
+
+    .btn-dish-pick {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      min-height: 32px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dish-card-item:hover .btn-dish-pick {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    /* Floating Sticky Cart Pill Bar (Mobile & Quick Access) */
+    .floating-cart-pill {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 440px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-full);
+      padding: 10px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-lg), 0 0 0 1px rgba(217, 107, 67, 0.3);
+      z-index: 90;
+      cursor: pointer;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    }
+
+    .floating-cart-pill.hidden {
+      transform: translate(-50%, 100px);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .cart-summary-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cart-counter-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-texts {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-label-str {
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cart-sum-str {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .cart-cta-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* ========================================================
+       MODALS & CHECKOUT SHEETS
+       ======================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-container {
+      width: 100%;
+      max-width: 540px;
+      background: var(--bg-surface);
+      border-top-left-radius: var(--radius-lg);
+      border-top-right-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      border-bottom: none;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .modal-overlay.active .modal-container {
+      transform: translateY(0);
+    }
+
+    @media (min-width: 600px) {
+      .modal-overlay {
+        align-items: center;
+        padding: 24px;
+      }
+      .modal-container {
+        border-radius: var(--radius-lg);
+        border-bottom: 1px solid var(--border-subtle);
+        max-height: 85vh;
+        transform: translateY(20px) scale(0.97);
+      }
+      .modal-overlay.active .modal-container {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .modal-head-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .modal-btn-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: none;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .modal-btn-close:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: var(--text-primary);
+    }
+
+    .modal-scrollable {
+      padding: 22px 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .modal-hero-box {
+      width: 100%;
+      height: 200px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-elevated);
+    }
+
+    .modal-hero-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-desc-p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .modal-sec-header {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .modal-sec-header .req-indicator {
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-transform: none;
+      font-weight: 500;
+    }
+
+    .options-group-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .option-card-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .option-card-label:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--border-medium);
+    }
+
+    .option-name-part {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.86rem;
+      color: var(--text-primary);
+    }
+
+    .option-card-label input[type="radio"],
+    .option-card-label input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--text-tertiary);
+      border-radius: 50%;
+      outline: none;
+      cursor: pointer;
+      display: grid;
+      place-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .option-card-label input[type="checkbox"] {
+      border-radius: 4px;
+    }
+
+    .option-card-label input[type="radio"]::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 0.15s transform ease-in-out;
+      background-color: var(--accent);
+    }
+
+    .option-card-label input[type="radio"]:checked {
+      border-color: var(--accent);
+    }
+
+    .option-card-label input[type="radio"]:checked::before {
+      transform: scale(1);
+    }
+
+    .option-card-label input[type="checkbox"]:checked {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: 12px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .option-diff-price {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .modal-notes-area {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      outline: none;
+      resize: vertical;
+      transition: border-color 0.2s ease;
+    }
+
+    .modal-notes-area:focus {
+      border-color: var(--accent);
+    }
+
+    .modal-foot-bar {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg-surface);
+    }
+
+    .qty-counter-control {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 2px;
+    }
+
+    .qty-btn-adjust {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease;
+    }
+
+    .qty-btn-adjust:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .qty-val-display {
+      min-width: 30px;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .btn-modal-add-cart {
+      flex: 1;
+      min-height: 48px;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius-full);
+      color: #ffffff;
+      font-family: var(--font-ui);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-modal-add-cart:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-modal-add-cart:active {
+      transform: scale(0.99);
+    }
+
+    /* Cart Drawer Elements */
+    .order-type-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .order-tab-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 9px 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-height: 38px;
+    }
+
+    .order-tab-btn svg {
+      color: var(--text-tertiary);
+    }
+
+    .order-tab-btn.active {
+      background: var(--accent-subtle);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .order-tab-btn.active svg {
+      color: var(--accent);
+    }
+
+    .cart-row-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .cart-item-meta {
+      flex: 1;
+      padding-right: 12px;
+    }
+
+    .cart-item-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .cart-item-options {
+      font-size: 0.76rem;
+      color: var(--text-tertiary);
+      margin-top: 3px;
+    }
+
+    .cart-item-control {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cart-item-cost {
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-inputs-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 4px;
+    }
+
+    .input-field-custom {
+      width: 100%;
+      min-height: 44px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 0.86rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .input-field-custom:focus {
+      border-color: var(--accent);
+    }
+
+    .bill-summary-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .bill-item-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+    }
+
+    .bill-item-line.total-line {
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .btn-send-whatsapp-order {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: #25d366;
+      color: #0b2512;
+      text-decoration: none;
+      min-height: 48px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: filter 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-send-whatsapp-order:hover {
+      filter: brightness(1.08);
+    }
+
+    .btn-secondary-phone {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      text-decoration: none;
+      min-height: 44px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s ease;
+    }
+
+    .btn-secondary-phone:hover {
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    /* Quiet Toast Notification */
+    .quiet-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-medium);
+      color: var(--text-primary);
+      padding: 10px 22px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      box-shadow: var(--shadow-md);
+      z-index: 250;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .quiet-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .quiet-toast svg {
+      color: #4ade80;
+      flex-shrink: 0;
+    }
+
+    /* QR Code Modal Frame */
+    .qr-center-box {
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .qr-white-frame {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      max-width: 220px;
+    }
+
+    /* ========================================================
+       FOOTER
+       ======================================================== */
+    .flagship-footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      padding: 60px 24px 80px 24px;
+    }
+
+    @media (min-width: 1024px) {
+      .flagship-footer {
+        padding: 80px 40px 100px 40px;
+      }
+    }
+
+    .footer-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .footer-cols {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .footer-cols {
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 40px;
+      }
+    }
+
+    .footer-brand-h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .footer-brand-h3 .accent-word {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .footer-text-p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .hours-table-foot {
+      width: 100%;
+      font-size: 0.82rem;
+      border-collapse: collapse;
+    }
+
+    .hours-table-foot td {
+      padding: 5px 0;
+      color: var(--text-secondary);
+    }
+
+    .hours-table-foot tr.today-highlight td {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .footer-legal-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.78rem;
+      color: var(--text-tertiary);
+    }
+
+    @media (min-width: 768px) {
+      .footer-legal-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .footer-links-inline {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-links-inline button,
+    .footer-links-inline a {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-links-inline button:hover,
+    .footer-links-inline a:hover {
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Scroll Progress Line -->
+  <div class="scroll-progress-line" id="scrollProgressLine"></div>
+
+  <!-- Global Navigation Header -->
+  <header class="site-nav-header">
+    <a href="#" class="brand-logo-link">
+      <span class="brand-logo-name">Ristorante <span class="accent-word">Pugliese</span></span>
+      <span class="brand-logo-city">Mayen</span>
+    </a>
+
+    <nav class="desktop-nav-links" aria-label="Hauptnavigation">
+      <a href="#empfehlungen" class="nav-link-item">Tagesempfehlungen</a>
+      <a href="#menu" class="nav-link-item">Speisekarte</a>
+      <a href="#handwerk" class="nav-link-item">Zutaten &amp; Steinofen</a>
+      <a href="#kontakt" class="nav-link-item">Öffnungszeiten</a>
+    </nav>
+
+    <div class="header-actions-group">
+      <a href="tel:+4916091401318" class="btn-header-call" title="Telefonisch anrufen">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>0160 / 9140 1318</span>
+      </a>
+
+      <button type="button" class="btn-header-cart" onclick="openCartDrawer()" aria-label="Bestellzettel öffnen">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>Bestellzettel</span>
+        <span class="cart-pill-count" id="headerCartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-container">
+
+    <!-- ==================== SCENE 1: CINEMATIC SCROLL-DRIVEN HERO ==================== -->
+    <section class="hero-runway" id="heroRunway">
+      <div class="hero-sticky-frame" id="heroStickyFrame">
+
+        <div class="hero-media-wrap">
+          <img src="images/hero_bg.jpg" alt="Steinofen im Ristorante Pizzeria Pugliese Mayen" class="hero-bg-photo" id="heroBgPhoto" decoding="async">
+          <div class="hero-media-scrim"></div>
+        </div>
+
+        <div class="hero-content-wrap" id="heroContentWrap">
+
+          <div class="hero-eyebrow-row">
+            <div class="hero-status-pill">
+              <span class="pulse-dot"></span>
+              <span>Geöffnet bis 22:30 Uhr</span>
+            </div>
+            <div class="hero-location-text">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Auf'm Hügelchen, 56727 Mayen</span>
+            </div>
+          </div>
+
+          <h1 class="hero-headline" aria-label="Ristorante Pizzeria Pugliese. Steinofen-Pizza, hausgemachte Pasta und apulische Gastfreundschaft in Mayen.">
+            <div>
+              <span class="word-wrap"><span class="hero-word" style="--w-idx: 0;">Ristorante</span></span>
+              <span class="word-wrap"><span class="hero-word" style="--w-idx: 1;">Pizzeria</span></span>
+              <span class="word-wrap"><span class="hero-word accent-word" style="--w-idx: 2;">Pugliese</span></span>
+            </div>
+            <span class="hero-headline-sub">
+              <span class="word-wrap"><span class="hero-word" style="--w-idx: 3;">Steinofen-Pizza,</span></span>
+              <span class="word-wrap"><span class="hero-word" style="--w-idx: 4;">hausgemachte</span></span>
+              <span class="word-wrap"><span class="hero-word" style="--w-idx: 5;">Pasta</span></span>
+              <span class="word-wrap"><span class="hero-word" style="--w-idx: 6;">und</span></span>
+              <span class="word-wrap"><span class="hero-word" style="--w-idx: 7;">mediterrane</span></span>
+              <span class="word-wrap"><span class="hero-word" style="--w-idx: 8;">Antipasti</span></span>
+              <span class="word-wrap"><span class="hero-word" style="--w-idx: 9;">in</span></span>
+              <span class="word-wrap"><span class="hero-word" style="--w-idx: 10;">Mayen.</span></span>
+            </span>
+          </h1>
+
+          <div class="hero-details-row">
+            <span class="hero-fact-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span>Täglich ab 11:30 Uhr</span>
+            </span>
+            <span class="hero-fact-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <span>48h Teigruhe</span>
+            </span>
+            <span class="hero-fact-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Aus eigener Herstellung</span>
+            </span>
+            <span class="hero-fact-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              <span>Abholung &amp; Lieferservice</span>
+            </span>
+          </div>
+
+          <div class="hero-actions-container">
+            <a href="#menu" class="btn-magnetic btn-magnetic-primary">
+              <span>Zur Speisekarte</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            </a>
+            <button type="button" class="btn-magnetic btn-magnetic-secondary" onclick="openQrModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span>Tisch-QR öffnen</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SCENE 2: PINNED HORIZONTAL DISH CAROUSEL ==================== -->
+    <section class="scene-carousel-runway" id="sceneCarouselRunway">
+      <div class="scene-carousel-sticky" id="sceneCarouselSticky">
+        <div id="empfehlungen"></div>
+        <div class="scene-carousel-header">
+          <div class="scene-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>Auswahl des Hauses</span>
+          </div>
+          <h2 class="scene-title">Tagesfrische Empfehlungen</h2>
+          <p class="scene-subtitle">Sechs Klassiker, die unsere Küche besonders auszeichnen. Weiter scrollen zum Erkunden.</p>
+        </div>
+
+        <div class="horizontal-track-container" id="horizontalTrackContainer">
+          <div class="horizontal-track" id="horizontalTrack">
+
+            <!-- Featured Dish 1 -->
+            <div class="showcase-card" onclick="openDishModal('d1')">
+              <div class="showcase-media">
+                <img src="images/doner_kebab.jpg" alt="Klassischer Döner Kebab" loading="lazy" decoding="async">
+                <span class="showcase-tag-chip">Beliebter Klassiker</span>
+              </div>
+              <div class="showcase-body">
+                <div>
+                  <h3 class="showcase-title">Klassischer Döner Kebab</h3>
+                  <p class="showcase-desc">Dünn geschnittenes Fleisch vom Schichtfleischspieß, getoastetes Viertelbrot, frischer Krautsalat und hausgemachte Kräutersauce.</p>
+                </div>
+                <div class="showcase-foot">
+                  <span class="showcase-price">7,50 €</span>
+                  <button type="button" class="btn-showcase-select" aria-label="Döner Kebab anpassen">Auswählen</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Featured Dish 2 -->
+            <div class="showcase-card" onclick="openDishModal('p2')">
+              <div class="showcase-media">
+                <img src="images/pizza_sucuk.jpg" alt="Pizza Sucuk aus dem Steinofen" loading="lazy" decoding="async">
+                <span class="showcase-tag-chip">Steinofen-Hit</span>
+              </div>
+              <div class="showcase-body">
+                <div>
+                  <h3 class="showcase-title">Pizza Sucuk Spezial</h3>
+                  <p class="showcase-desc">Würzige Rinderknoblauchwurst, kräftiger Hirtenkäse, milde Peperoni und Fior di Latte Mozzarella auf Schamottstein gebacken.</p>
+                </div>
+                <div class="showcase-foot">
+                  <span class="showcase-price">10,50 €</span>
+                  <button type="button" class="btn-showcase-select" aria-label="Pizza Sucuk anpassen">Auswählen</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Featured Dish 3 -->
+            <div class="showcase-card" onclick="openDishModal('b1')">
+              <div class="showcase-media">
+                <img src="images/burger_cheeseburger.jpg" alt="Classic Cheeseburger mit Pommes" loading="lazy" decoding="async">
+                <span class="showcase-tag-chip">Grillplatte</span>
+              </div>
+              <div class="showcase-body">
+                <div>
+                  <h3 class="showcase-title">Classic Cheeseburger</h3>
+                  <p class="showcase-desc">150 g saftiges Rinder-Patty, irischer Cheddar, Gewürzgurke und Haussauce im Brioche-Bun. Serviert mit knusprigen Pommes.</p>
+                </div>
+                <div class="showcase-foot">
+                  <span class="showcase-price">10,50 €</span>
+                  <button type="button" class="btn-showcase-select" aria-label="Cheeseburger anpassen">Auswählen</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Featured Dish 4 -->
+            <div class="showcase-card" onclick="openDishModal('d5')">
+              <div class="showcase-media">
+                <img src="images/falafel.jpg" alt="Falafel im Fladenbrot" loading="lazy" decoding="async">
+                <span class="showcase-tag-chip">Vegetarisch</span>
+              </div>
+              <div class="showcase-body">
+                <div>
+                  <h3 class="showcase-title">Falafel im Fladenbrot</h3>
+                  <p class="showcase-desc">Vier goldgelb frittierte Kichererbsenbällchen mit Kreuzkümmel, Tahini-Sesamsauce, frischer Minze und knackigem Salat.</p>
+                </div>
+                <div class="showcase-foot">
+                  <span class="showcase-price">7,00 €</span>
+                  <button type="button" class="btn-showcase-select" aria-label="Falafel anpassen">Auswählen</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Featured Dish 5 -->
+            <div class="showcase-card" onclick="openDishModal('p7')">
+              <div class="showcase-media">
+                <img src="images/calzone.jpg" alt="Calzone Döner" loading="lazy" decoding="async">
+                <span class="showcase-tag-chip">Steinofen-Tasche</span>
+              </div>
+              <div class="showcase-body">
+                <div>
+                  <h3 class="showcase-title">Calzone Döner</h3>
+                  <p class="showcase-desc">Gefüllte Teigtasche mit saftigem Kalbfleisch, frischen Champignons, Tomatensauce und geschmolzenem Mozzarella.</p>
+                </div>
+                <div class="showcase-foot">
+                  <span class="showcase-price">11,50 €</span>
+                  <button type="button" class="btn-showcase-select" aria-label="Calzone anpassen">Auswählen</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Featured Dish 6 -->
+            <div class="showcase-card" onclick="openDishModal('g5')">
+              <div class="showcase-media">
+                <img src="images/dessert_baklava.jpg" alt="Pistazien-Baklava" loading="lazy" decoding="async">
+                <span class="showcase-tag-chip">Dessert</span>
+              </div>
+              <div class="showcase-body">
+                <div>
+                  <h3 class="showcase-title">Baklava mit Pistazien</h3>
+                  <p class="showcase-desc">Vier Stücke knuspriges Filoteiggebäck, geschichtet mit gehackten Pistazien und verfeinert mit feinem Zuckersirup.</p>
+                </div>
+                <div class="showcase-foot">
+                  <span class="showcase-price">4,50 €</span>
+                  <button type="button" class="btn-showcase-select" aria-label="Baklava anpassen">Auswählen</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="carousel-indicator-bar">
+          <div class="track-progress-track">
+            <div class="track-progress-fill" id="trackProgressFill"></div>
+          </div>
+          <span class="track-hint-label">Horizontales Gleiten beim Scrollen</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STORY & PROVENANCE ==================== -->
+    <section class="craft-story-section" id="handwerk">
+      <div class="craft-grid">
+        <div class="craft-item">
+          <span class="craft-item-num">01</span>
+          <h3 class="craft-item-title">48 Stunden Teigführung</h3>
+          <p class="craft-item-desc">Unser Pizzateig reift mindestens zwei Tage lang bei kühler Temperatur. Das Ergebnis ist ein aromatischer, elastischer Rand mit knusprigem Biss und hoher Bekömmlichkeit.</p>
+        </div>
+        <div class="craft-item">
+          <span class="craft-item-num">02</span>
+          <h3 class="craft-item-title">Schichtfleisch &amp; Halal</h3>
+          <p class="craft-item-desc">Wir verzichten auf industrielles Brät. Unser Drehspieß besteht aus echtem, mariniertem Schichtfleisch aus zertifizierter 100% Halal-Schlachtung.</p>
+        </div>
+        <div class="craft-item">
+          <span class="craft-item-num">03</span>
+          <h3 class="craft-item-title">Eigene Saucen &amp; Brot</h3>
+          <p class="craft-item-desc">Unsere Kräuter-Knoblauchsauce, Tzatziki und Scharfe Sauce rühren wir jeden Morgen selbst an. Fladenbrot und Yufka werden fortlaufend frisch im Ofen gebacken.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SCENE 3: MAIN MENU ==================== -->
+    <main class="menu-main-section" id="menu">
+
+      <!-- Sticky Category Bar & Live Search -->
+      <div class="menu-controls-sticky" id="menuControlsSticky">
+        <nav class="category-scroll-strip" id="catScrollStrip" aria-label="Kategorienavigation">
+          <a href="#cat-pizza" class="cat-nav-pill active" data-cat="pizza">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L3 20a1.5 1.5 0 0 0 1.3 2.2c4.5-.4 10.9-.4 15.4 0A1.5 1.5 0 0 0 21 20L12 2z"/><circle cx="12" cy="11" r="1.2" fill="currentColor"/><circle cx="10" cy="16" r="1.2" fill="currentColor"/><circle cx="14" cy="16" r="1.2" fill="currentColor"/></svg>
+            <span>Pizza</span>
+          </a>
+          <a href="#cat-pasta" class="cat-nav-pill" data-cat="pasta">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a8 8 0 0 1 16 0H4z"/><path d="M8 15v5"/><path d="M12 15v5"/><path d="M16 15v5"/><path d="M4 11c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span>Pasta</span>
+          </a>
+          <a href="#cat-antipasti" class="cat-nav-pill" data-cat="antipasti">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 0 0 18 0H3z"/><path d="M12 11V4c3 0 5 2 5 5"/><path d="M12 7c-2.5 0-4 1.5-4 4"/></svg>
+            <span>Antipasti</span>
+          </a>
+          <a href="#cat-getraenke" class="cat-nav-pill" data-cat="getraenke">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l-1.5 17a2 2 0 0 1-2 1.8H9.5a2 2 0 0 1-2-1.8L6 3z"/><path d="M4 3h16"/></svg>
+            <span>Getränke &amp; Dolci</span>
+          </a>
+        </nav>
+
+        <div class="search-filter-wrap">
+          <div class="search-input-box">
+            <svg class="search-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="menuSearchInput" class="menu-search-input" placeholder="Gericht oder Zutat suchen (z. B. Sucuk, Falafel)..." oninput="handleSearch(this.value)" aria-label="Gerichte suchen">
+            <button type="button" class="btn-search-clear" id="searchClearBtn" onclick="clearSearch()" title="Suche leeren" aria-label="Suche zurücksetzen">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Diet Filters -->
+      <div class="diet-filters-bar" role="tablist">
+        <button class="diet-filter-chip active" data-filter="all" onclick="setTagFilter('all', this)" role="tab">Alle Gerichte</button>
+        <button class="diet-filter-chip" data-filter="bestseller" onclick="setTagFilter('bestseller', this)" role="tab">Beliebt</button>
+        <button class="diet-filter-chip" data-filter="halal" onclick="setTagFilter('halal', this)" role="tab">100% Halal</button>
+        <button class="diet-filter-chip" data-filter="veggie" onclick="setTagFilter('veggie', this)" role="tab">Vegetarisch</button>
+        <button class="diet-filter-chip" data-filter="spicy" onclick="setTagFilter('spicy', this)" role="tab">Pikant</button>
+      </div>
+
+      <!-- ==================== 1. DÖNER ==================== -->
+      <section class="category-group" id="cat-doner" data-category="doner">
+        <div class="category-header-banner">
+          <img src="images/cat_doner.jpg" alt="Döner Spezialitäten" loading="lazy" decoding="async">
+          <div class="category-banner-scrim">
+            <h2 class="cat-title-text">Döner &amp; Drehspieß</h2>
+            <p class="cat-desc-text">Frisch vom Drehspieß geschnitten, im getoasteten Brot mit Krautsalat, Tomaten und hausgemachten Saucen.</p>
+          </div>
+        </div>
+
+        <div class="cat-allergen-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Allergene: A (Weizen), C (Ei/Sauce), G (Milch/Joghurt), K (Sesam). Drehspieß Kalb und Hähnchen zu 100% Halal zertifiziert.</span>
+        </div>
+
+        <div class="dishes-grid">
+          <!-- d1 -->
+          <div class="dish-card-item" onclick="openDishModal('d1')" data-id="d1" data-tags="halal bestseller" data-search="klassischer döner kebab fladenbrot kalb hähnchen kräutersauce knoblauch">
+            <div class="dish-thumb-box">
+              <img src="images/doner_kebab.jpg" alt="Klassischer Döner Kebab" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Klassischer Döner Kebab</h3>
+                </div>
+                <p class="dish-desc-p">Dünn geschnittenes Kalb- oder Hähnchenfleisch im getoasteten Viertelfladenbrot. Dazu Eisbergsalat, Rotkohl, Tomaten, Gurken, Zwiebeln und Kräutersauce.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">7,50 €</span>
+                  <span class="dish-hint-text">Normal / Groß</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Döner Kebab auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- d2 -->
+          <div class="dish-card-item" onclick="openDishModal('d2')" data-id="d2" data-tags="halal bestseller" data-search="dürüm döner yufka wrap kalb hähnchen kräutersauce">
+            <div class="dish-thumb-box">
+              <img src="images/durum_doner.jpg" alt="Dürüm Döner im gerollten Yufka Teig" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Dürüm Döner</h3>
+                </div>
+                <p class="dish-desc-p">Drehspießfleisch, Salat und Sauce nach Wahl in hauchdünnem Yufka-Teig eingerollt und auf dem Kontaktgrill kross getoastet.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">8,50 €</span>
+                  <span class="dish-hint-text">Standard / XXL</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Dürüm Döner auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- d3 -->
+          <div class="dish-card-item" onclick="openDishModal('d3')" data-id="d3" data-tags="halal" data-search="döner teller spezial pommes reis salat kalb hähnchen">
+            <div class="dish-thumb-box">
+              <img src="images/donerteller.jpg" alt="Döner Teller mit Pommes und Salat" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Döner-Teller mit Beilage</h3>
+                </div>
+                <p class="dish-desc-p">Große Portion Drehspießfleisch mit Pommes frites oder Butterreis, buntem Beilagensalat, zwei Saucen und Fladenbrot.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">12,90 €</span>
+                  <span class="dish-hint-text">Pommes oder Reis</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Döner Teller auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- d4 -->
+          <div class="dish-card-item" onclick="openDishModal('d4')" data-id="d4" data-tags="halal" data-search="döner box to-go pommes fleisch kalb sauce">
+            <div class="dish-thumb-box">
+              <img src="images/doner_box.jpg" alt="Döner Box mit Pommes" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Döner-Box</h3>
+                </div>
+                <p class="dish-desc-p">Drehspießfleisch mit knusprigen Pommes frites oder Salat und Sauce in der praktischen Mitnahmebox für unterwegs.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">6,50 €</span>
+                  <span class="dish-hint-text">Klein / Groß</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Döner Box auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- d5 -->
+          <div class="dish-card-item" onclick="openDishModal('d5')" data-id="d5" data-tags="veggie" data-search="falafel tasche kichererbsen hummus sesamsauce vegetarisch vegan">
+            <div class="dish-thumb-box">
+              <img src="images/falafel.jpg" alt="Falafel Tasche" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Falafel im Fladenbrot</h3>
+                  <span class="diet-badge-label">Vegetarisch</span>
+                </div>
+                <p class="dish-desc-p">Vier frittierte Kichererbsenbällchen mit Kreuzkümmel und Petersilie im Fladenbrot. Mit Sesamsauce (Tahini), Minze, Gurken und Tomaten.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">7,00 €</span>
+                  <span class="dish-hint-text">Fladenbrot / Wrap</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Falafel auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- d6 -->
+          <div class="dish-card-item" onclick="openDishModal('d6')" data-id="d6" data-tags="veggie" data-search="halloumi dürüm grillkäse yufka vegetarisch rucola">
+            <div class="dish-thumb-box">
+              <img src="images/halloumi_durum.jpg" alt="Halloumi Dürüm" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Halloumi Dürüm</h3>
+                  <span class="diet-badge-label">Vegetarisch</span>
+                </div>
+                <p class="dish-desc-p">Zypriotischer Grillkäse kurz angebraten, im Yufka-Fladen eingerollt mit Rucola, Tomaten, Gurken und Joghurt-Kräuter-Sauce.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">8,00 €</span>
+                  <span class="dish-hint-text">Standard / XXL</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Halloumi Dürüm auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 2. PIZZA ==================== -->
+      <section class="category-group" id="cat-pizza" data-category="pizza">
+        <div class="category-header-banner">
+          <img src="images/cat_pizza.jpg" alt="Steinofen Pizza" loading="lazy" decoding="async">
+          <div class="category-banner-scrim">
+            <h2 class="cat-title-text">Steinofen-Pizza</h2>
+            <p class="cat-desc-text">48 Stunden Teigführung, von Hand geformt und auf Schamottstein gebacken. Mit San-Marzano-Tomaten und Mozzarella.</p>
+          </div>
+        </div>
+
+        <div class="cat-allergen-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Allergene: A (Weizenmehl), G (Mozzarella / Käse). Auf Wunsch mit Knoblauchöl am Rand gebacken.</span>
+        </div>
+
+        <div class="dishes-grid">
+          <!-- p1 -->
+          <div class="dish-card-item" onclick="openDishModal('p1')" data-id="p1" data-tags="veggie" data-search="pizza margherita tradizionale tomatensauce mozzarella basilikum steinofen vegetarisch">
+            <div class="dish-thumb-box">
+              <img src="images/pizza_margherita.jpg" alt="Pizza Margherita" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Pizza Margherita</h3>
+                  <span class="diet-badge-label">Vegetarisch</span>
+                </div>
+                <p class="dish-desc-p">Hausgemachte Tomatensauce aus italienischen Tomaten, Fior di Latte Mozzarella, Olivenöl und frisches Basilikum. Auf Stein gebacken.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">8,00 €</span>
+                  <span class="dish-hint-text">Ø 28cm / 32cm / Blech</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Pizza Margherita auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- p2 -->
+          <div class="dish-card-item" onclick="openDishModal('p2')" data-id="p2" data-tags="halal bestseller spicy" data-search="pizza sucuk knoblauchwurst rinderwurst hirtenkäse peperoni scharf">
+            <div class="dish-thumb-box">
+              <img src="images/pizza_sucuk.jpg" alt="Pizza Sucuk" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Pizza Sucuk</h3>
+                </div>
+                <p class="dish-desc-p">Würzige Rinderknoblauchwurst (Sucuk), Mozzarella, Hirtenkäse, milde Peperoni und rote Zwiebeln.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">10,50 €</span>
+                  <span class="dish-hint-text">Ø 28cm / 32cm / Blech</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Pizza Sucuk auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- p3 -->
+          <div class="dish-card-item" onclick="openDishModal('p3')" data-id="p3" data-tags="halal bestseller" data-search="pizza döner supreme kalbfleisch zwiebeln knoblauchsauce">
+            <div class="dish-thumb-box">
+              <img src="images/pizza_doner.jpg" alt="Pizza Döner" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Pizza Döner</h3>
+                </div>
+                <p class="dish-desc-p">Kalbdrehspießfleisch, Tomatensauce, Mozzarella, rote Zwiebeln und nach dem Backen mit milder Knoblauchsauce verfeinert.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">11,00 €</span>
+                  <span class="dish-hint-text">Ø 28cm / 32cm / Blech</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Pizza Döner auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- p4 -->
+          <div class="dish-card-item" onclick="openDishModal('p4')" data-id="p4" data-tags="halal" data-search="pizza salami classico rindersalami halal oregano mozzarella">
+            <div class="dish-thumb-box">
+              <img src="images/pizza_salami.jpg" alt="Pizza Salami" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Pizza Salami</h3>
+                </div>
+                <p class="dish-desc-p">Rindersalami, Tomatensauce, Mozzarella und gerebelter Oregano.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">9,50 €</span>
+                  <span class="dish-hint-text">Ø 28cm / 32cm / Blech</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Pizza Salami auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- p5 -->
+          <div class="dish-card-item" onclick="openDishModal('p5')" data-id="p5" data-tags="" data-search="pizza tonno e cipolla thunfisch zwiebeln fisch">
+            <div class="dish-thumb-box">
+              <img src="images/pizza_tonno.jpg" alt="Pizza Tonno" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Pizza Tonno e Cipolla</h3>
+                </div>
+                <p class="dish-desc-p">Thunfischfilet, dünn gehobelte rote Zwiebeln, Tomatensauce, Mozzarella und Oregano.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">10,00 €</span>
+                  <span class="dish-hint-text">Ø 28cm / 32cm / Blech</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Pizza Tonno auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- p6 -->
+          <div class="dish-card-item" onclick="openDishModal('p6')" data-id="p6" data-tags="veggie" data-search="pizza vegetaria deluxe champignons paprika zucchini artischocken vegetarisch">
+            <div class="dish-thumb-box">
+              <img src="images/pizza_vegetaria.jpg" alt="Pizza Vegetaria" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Pizza Vegetaria</h3>
+                  <span class="diet-badge-label">Vegetarisch</span>
+                </div>
+                <p class="dish-desc-p">Frische braune Champignons, rote Paprika, Zucchini, Artischockenherzen und Mozzarella.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">10,00 €</span>
+                  <span class="dish-hint-text">Ø 28cm / 32cm / Blech</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Pizza Vegetaria auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- p7 -->
+          <div class="dish-card-item" onclick="openDishModal('p7')" data-id="p7" data-tags="halal" data-search="calzone demo gefüllte pizza kalbfleisch pilze käse">
+            <div class="dish-thumb-box">
+              <img src="images/calzone.jpg" alt="Calzone Döner" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Calzone Döner</h3>
+                </div>
+                <p class="dish-desc-p">Gefüllte Teigtasche mit Kalbdrehspießfleisch, Tomatensauce, Champignons und Mozzarella, im Steinofen goldbraun gebacken.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">11,50 €</span>
+                  <span class="dish-hint-text">Große Teigtasche</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Calzone auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 3. BURGER ==================== -->
+      <section class="category-group" id="cat-pasta" data-category="pasta">
+        <div class="category-header-banner">
+          <img src="images/cat_burger.jpg" alt="Burger Spezialitäten" loading="lazy" decoding="async">
+          <div class="category-banner-scrim">
+            <h2 class="cat-title-text">Hausgemachte Pasta</h2>
+            <p class="cat-desc-text">150 g Rindfleisch frisch auf der Grillplatte gebraten, serviert im getoasteten Brioche-Bun mit knusprigen Pommes frites.</p>
+          </div>
+        </div>
+
+        <div class="cat-allergen-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Allergene: A (Brioche-Bun), C (Mayonnaise / Burgersauce), G (Cheddar), J (Senf). Alle Fleisch-Patties zu 100% Halal.</span>
+        </div>
+
+        <div class="dishes-grid">
+          <!-- b1 -->
+          <div class="dish-card-item" onclick="openDishModal('b1')" data-id="b1" data-tags="halal bestseller" data-search="cheeseburger rindfleisch cheddar brioche gurke pommes burger">
+            <div class="dish-thumb-box">
+              <img src="images/burger_cheeseburger.jpg" alt="Classic Cheeseburger" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Classic Cheeseburger</h3>
+                </div>
+                <p class="dish-desc-p">150 g Rinder-Patty, irischer Cheddar, Gewürzgurken, Tomate, rote Zwiebeln und Haussauce im getoasteten Brioche-Bun. Inklusive Pommes.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">10,50 €</span>
+                  <span class="dish-hint-text">Inkl. Pommes frites</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Cheeseburger auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- b2 -->
+          <div class="dish-card-item" onclick="openDishModal('b2')" data-id="b2" data-tags="halal" data-search="crispy chicken burger knusprig hähnchenbrust remoulade pommes">
+            <div class="dish-thumb-box">
+              <img src="images/burger_chicken.jpg" alt="Rigatoni alla Bolognese Classica" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Rigatoni alla Bolognese Classica</h3>
+                </div>
+                <p class="dish-desc-p">Paniertes Hähnchenbrustfilet, Eisbergsalat, Tomate, Gewürzgurken und milde Burgersauce im Brioche-Bun. Inklusive Pommes.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">10,50 €</span>
+                  <span class="dish-hint-text">Inkl. Pommes frites</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Rigatoni alla Bolognese Classica auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- b3 -->
+          <div class="dish-card-item" onclick="openDishModal('b3')" data-id="b3" data-tags="halal spicy" data-search="smokey bbq beef burger bacon rinderspeck cheddar zwiebeln">
+            <div class="dish-thumb-box">
+              <img src="images/burger_bbq.jpg" alt="BBQ Beef Burger" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">BBQ Beef Burger</h3>
+                </div>
+                <p class="dish-desc-p">150 g Rinder-Patty mit krossem Rinderspeck, geschmorten Zwiebeln, Cheddar und rauchiger Barbecue-Sauce im Brioche-Bun. Inklusive Pommes.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">11,50 €</span>
+                  <span class="dish-hint-text">Inkl. Pommes frites</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="BBQ Beef Burger auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- b4 -->
+          <div class="dish-card-item" onclick="openDishModal('b4')" data-id="b4" data-tags="veggie" data-search="veggie avocado halloumi burger grillkäse rucola vegetarisch">
+            <div class="dish-thumb-box">
+              <img src="images/burger_veggie.jpg" alt="Halloumi Burger" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Halloumi Burger</h3>
+                  <span class="diet-badge-label">Vegetarisch</span>
+                </div>
+                <p class="dish-desc-p">Gegrillter Halloumi-Käse, hausgemachte Avocadocreme, Rucola, Tomatenscheibe und Kräutersauce im Brioche-Bun. Inklusive Pommes.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">10,00 €</span>
+                  <span class="dish-hint-text">Inkl. Pommes frites</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Halloumi Burger auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 4. SALATE ==================== -->
+      <section class="category-group" id="cat-antipasti" data-category="antipasti">
+        <div class="category-header-banner">
+          <img src="images/cat_salate.jpg" alt="Frische Salate und Bowls" loading="lazy" decoding="async">
+          <div class="category-banner-scrim">
+            <h2 class="cat-title-text">Antipasti &amp; Insalate</h2>
+            <p class="cat-desc-text">Tagesfrischer Blattsalat, Gurken, Tomaten und Hirtenkäse. Dressings werden täglich frisch zubereitet.</p>
+          </div>
+        </div>
+
+        <div class="cat-allergen-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Allergene: G (Hirtenkäse, Joghurt-Dressing), K (Tahini-Sesamsauce), C (Caesar-Dressing). Zu jedem Salat reichen wir warmes Fladenbrot.</span>
+        </div>
+
+        <div class="dishes-grid">
+          <!-- s1 -->
+          <div class="dish-card-item" onclick="openDishModal('s1')" data-id="s1" data-tags="veggie" data-search="bauernsalat mayen schafskäse hirtenkäse oliven tomaten vegetarisch">
+            <div class="dish-thumb-box">
+              <img src="images/salat_bauernsalat.jpg" alt="Bauernsalat mit Hirtenkäse" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Bauernsalat mit Hirtenkäse</h3>
+                  <span class="diet-badge-label">Vegetarisch</span>
+                </div>
+                <p class="dish-desc-p">Rispentomaten, Gurken, Hirtenkäse aus Kuhmilch, Kalamata-Oliven und rote Zwiebeln mit Olivenöl und Oregano. Dazu Brot.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">8,50 €</span>
+                  <span class="dish-hint-text">Inkl. Fladenbrot</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Bauernsalat auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- s2 -->
+          <div class="dish-card-item" onclick="openDishModal('s2')" data-id="s2" data-tags="halal bestseller" data-search="döner salat bowl low carb kalbfleisch gemüse joghurtsauce">
+            <div class="dish-thumb-box">
+              <img src="images/salat_donerbowl.jpg" alt="Döner-Salat-Bowl" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Döner-Salat-Bowl</h3>
+                </div>
+                <p class="dish-desc-p">Geschnittenes Kalbdrehspießfleisch auf gemischtem Blattsalat mit Gurken, Tomaten, Rotkohl und Joghurt-Kräuter-Dressing.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">9,50 €</span>
+                  <span class="dish-hint-text">Inkl. Fladenbrot</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Döner-Salat-Bowl auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- s3 -->
+          <div class="dish-card-item" onclick="openDishModal('s3')" data-id="s3" data-tags="halal" data-search="crispy chicken caesar bowl hähnchen parmesan croutons">
+            <div class="dish-thumb-box">
+              <img src="images/salat_caesar.jpg" alt="Caesar Bowl mit Hähnchen" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Caesar Bowl mit Hähnchen</h3>
+                </div>
+                <p class="dish-desc-p">Römersalat, gebratene Hähnchenbruststreifen, Fladenbrot-Croutons, Grana Padano und cremiges Caesar-Dressing.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">9,50 €</span>
+                  <span class="dish-hint-text">Inkl. Fladenbrot</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Caesar Bowl auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- s4 -->
+          <div class="dish-card-item" onclick="openDishModal('s4')" data-id="s4" data-tags="veggie" data-search="falafel bowl vegan oriental hummus granatapfel tahini vegetarisch">
+            <div class="dish-thumb-box">
+              <img src="images/salat_falafelbowl.jpg" alt="Falafel-Bowl mit Hummus" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Falafel-Bowl mit Hummus</h3>
+                  <span class="diet-badge-label">Vegetarisch</span>
+                </div>
+                <p class="dish-desc-p">Vier Falafelbällchen auf Blattsalat mit hausgemachtem Kichererbsen-Hummus, Tomaten, Gurken, Granatapfelkernen und Tahini-Dressing.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">8,90 €</span>
+                  <span class="dish-hint-text">Inkl. Fladenbrot</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Falafel-Bowl auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 5. GETRÄNKE & DESSERT ==================== -->
+      <section class="category-group" id="cat-getraenke" data-category="getraenke">
+        <div class="category-header-banner">
+          <img src="images/cat_getraenke.jpg" alt="Erfrischungsgetränke und Dessert" loading="lazy" decoding="async">
+          <div class="category-banner-scrim">
+            <h2 class="cat-title-text">Getränke &amp; Dessert</h2>
+            <p class="cat-desc-text">Gekühlte Softdrinks, erfrischender Ayran und orientalisches Baklava mit gehackten Pistazien.</p>
+          </div>
+        </div>
+
+        <div class="dishes-grid">
+          <!-- g1 -->
+          <div class="dish-card-item" onclick="openDishModal('g1')" data-id="g1" data-tags="" data-search="ayran joghurtdrink erfrischung türkei">
+            <div class="dish-thumb-box">
+              <img src="images/getraenk_ayran.jpg" alt="Ayran" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Ayran</h3>
+                </div>
+                <p class="dish-desc-p">Türkisches Joghurtgetränk mit Wasser und einer Prise Meersalz, gekühlt (0,25 l Becher).</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">1,80 €</span>
+                  <span class="dish-hint-text">0,25 l Becher</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Ayran auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- g2 -->
+          <div class="dish-card-item" onclick="openDishModal('g2')" data-id="g2" data-tags="" data-search="uludag gazoz limonade waldmeister zitrone dose">
+            <div class="dish-thumb-box">
+              <img src="images/getraenk_uludag.jpg" alt="Uludağ Gazoz" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Uludağ Gazoz</h3>
+                </div>
+                <p class="dish-desc-p">Türkische Limonade mit leichter Waldmeister- und Zitrusnote, gekühlt in der Dose (0,33 l).</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">2,50 €</span>
+                  <span class="dish-hint-text">0,33 l Dose</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Uludağ Gazoz auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- g3 -->
+          <div class="dish-card-item" onclick="openDishModal('g3')" data-id="g3" data-tags="" data-search="fritz kola fritz-kola fritz limo zuckerfrei glasflasche">
+            <div class="dish-thumb-box">
+              <img src="images/getraenk_fritz.jpg" alt="fritz-kola und fritz-limo" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">fritz-kola &amp; Limonaden</h3>
+                </div>
+                <p class="dish-desc-p">Koffeinhaltige Cola oder fruchtige Limonade in der Glasflasche (0,33 l, Auswahl vor Ort).</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">2,80 €</span>
+                  <span class="dish-hint-text">0,33 l Glasflasche</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="fritz-kola auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- g4 -->
+          <div class="dish-card-item" onclick="openDishModal('g4')" data-id="g4" data-tags="" data-search="coca cola zero fanta sprite mezzo mix">
+            <div class="dish-thumb-box">
+              <img src="images/getraenk_cola.jpg" alt="Erfrischungsgetränke" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Erfrischungsgetränke</h3>
+                </div>
+                <p class="dish-desc-p">Coca-Cola, Coca-Cola Zero, Fanta Orange oder Mezzo Mix, gekühlt in der Dose (0,33 l).</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">2,50 €</span>
+                  <span class="dish-hint-text">0,33 l Dose</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Erfrischungsgetränke auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- g5 -->
+          <div class="dish-card-item" onclick="openDishModal('g5')" data-id="g5" data-tags="veggie bestseller" data-search="baklava pistazien dessert süß blätterteig sirup">
+            <div class="dish-thumb-box">
+              <img src="images/dessert_baklava.jpg" alt="Baklava mit Pistazien" class="dish-thumb-img" loading="lazy" decoding="async">
+            </div>
+            <div class="dish-content-box">
+              <div>
+                <div class="dish-title-line">
+                  <h3 class="dish-title-h3">Baklava mit Pistazien</h3>
+                  <span class="diet-badge-label">Vegetarisch</span>
+                </div>
+                <p class="dish-desc-p">Vier Stücke orientalisches Blätterteiggebäck, geschichtet mit gehackten Pistazien und Zuckersirup.</p>
+              </div>
+              <div class="dish-foot-row">
+                <div>
+                  <span class="dish-price-text">4,50 €</span>
+                  <span class="dish-hint-text">4 Stück Portion</span>
+                </div>
+                <button type="button" class="btn-dish-pick" aria-label="Baklava auswählen">Auswählen</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Empty state when search yields no result -->
+      <div id="noResultsState" style="display: none; text-align: center; padding: 60px 20px; color: var(--text-secondary);">
+        <div style="margin-bottom: 12px; color: var(--accent); opacity: 0.85;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h3 style="font-family: var(--font-display); color: var(--text-primary); font-size: 1.35rem;">Keine Gerichte gefunden</h3>
+        <p style="font-size: 0.88rem; margin-top: 6px;">Probieren Sie einen anderen Suchbegriff wie z. B. Pizza, Sucuk, Falafel oder Kalb.</p>
+        <button onclick="clearSearch()" style="margin-top: 18px; background: var(--accent); color: white; border: none; padding: 11px 24px; min-height: var(--touch-target-min); border-radius: var(--radius-full); font-weight: 600; cursor: pointer;">Alle Gerichte anzeigen</button>
+      </div>
+
+    </main>
+
+    <!-- ==================== FLOATING CART PILL (MOBILE) ==================== -->
+    <div class="floating-cart-pill hidden" id="floatingCartPill" onclick="openCartDrawer()" role="button" aria-label="Warenkorb und Vorbestellung öffnen">
+      <div class="cart-summary-group">
+        <div class="cart-counter-badge" id="cartCountBadge">0</div>
+        <div class="cart-texts">
+          <span class="cart-label-str">Ihre Vorbestellung</span>
+          <span class="cart-sum-str" id="cartSumText">0,00 €</span>
+        </div>
+      </div>
+      <div class="cart-cta-box">
+        <span>Bestellzettel</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: DISH CUSTOMIZER ==================== -->
+    <div class="modal-overlay" id="dishModalBackdrop" onclick="closeDishModal(event)">
+      <div class="modal-container" id="dishModalSheet" onclick="event.stopPropagation()">
+        <div class="modal-head">
+          <h3 class="modal-head-title" id="modalDishTitle">Gericht anpassen</h3>
+          <button type="button" class="modal-btn-close" onclick="closeDishModal()" title="Schließen" aria-label="Schließen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="modal-scrollable">
+          <div class="modal-hero-box">
+            <img id="modalDishImage" src="images/doner_kebab.jpg" alt="Gericht Vorschau">
+          </div>
+
+          <p id="modalDishDesc" class="modal-desc-p"></p>
+
+          <!-- Size Selection -->
+          <div id="modalSizeSection">
+            <div class="modal-sec-header">
+              <span>Größe wählen</span>
+              <span class="req-indicator">Pflichtfeld</span>
+            </div>
+            <div class="options-group-list" id="modalSizeGroup">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Sauce Selection -->
+          <div id="modalSauceSection">
+            <div class="modal-sec-header">
+              <span>Sauce wählen</span>
+            </div>
+            <div class="options-group-list" id="modalSauceGroup">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Extras Checkboxes -->
+          <div id="modalExtrasSection">
+            <div class="modal-sec-header">
+              <span>Zusätzliche Wünsche &amp; Extras</span>
+            </div>
+            <div class="options-group-list" id="modalExtrasGroup">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div>
+            <div class="modal-sec-header">
+              <span>Besondere Notiz an die Küche (optional)</span>
+            </div>
+            <textarea id="modalSpecialNotes" class="modal-notes-area" rows="2" placeholder="z. B. Ohne Zwiebeln, Knoblauchsauce extra, gut durchgebacken..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-foot-bar">
+          <div class="qty-counter-control">
+            <button type="button" class="qty-btn-adjust" onclick="decrementModalQty()" aria-label="Menge verringern">-</button>
+            <span class="qty-val-display" id="modalQtyDisplay">1</span>
+            <button type="button" class="qty-btn-adjust" onclick="incrementModalQty()" aria-label="Menge erhöhen">+</button>
+          </div>
+          <button type="button" class="btn-modal-add-cart" id="btnModalAddToCart" onclick="commitDishToCart()">
+            <span>Hinzufügen</span>
+            <span>/</span>
+            <span id="modalFinalPrice">0,00 €</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: CART & CHECKOUT DRAWER ==================== -->
+    <div class="modal-overlay" id="cartModalBackdrop" onclick="closeCartDrawer(event)">
+      <div class="modal-container" id="cartModalSheet" onclick="event.stopPropagation()">
+        <div class="modal-head">
+          <h3 class="modal-head-title">Ihr Bestellzettel</h3>
+          <button type="button" class="modal-btn-close" onclick="closeCartDrawer()" title="Schließen" aria-label="Schließen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="modal-scrollable">
+          <!-- Order Type Switch -->
+          <div class="order-type-tabs" role="radiogroup">
+            <button type="button" class="order-tab-btn active" id="typePickup" onclick="setOrderType('pickup')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <span>Abholung</span>
+            </button>
+            <button type="button" class="order-tab-btn" id="typeDelivery" onclick="setOrderType('delivery')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              <span>Lieferung</span>
+            </button>
+            <button type="button" class="order-tab-btn" id="typeDinein" onclick="setOrderType('dinein')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+              <span>Am Tisch</span>
+            </button>
+          </div>
+
+          <!-- Cart Items Container -->
+          <div id="cartItemsList">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- User Details Form -->
+          <div class="form-inputs-stack">
+            <div class="modal-sec-header" style="margin-bottom: 2px;">
+              <span>Ihre Angaben für Rückfragen</span>
+            </div>
+            <input type="text" id="custName" class="input-field-custom" placeholder="Ihr Name (z. B. Max Mustermann)">
+            <input type="tel" id="custPhone" class="input-field-custom" placeholder="Telefonnummer für Rückfragen">
+            <input type="text" id="custTableOrAddress" class="input-field-custom" placeholder="Abholzeit (z. B. in 20 Min.)">
+          </div>
+
+          <!-- Bill calculation summary -->
+          <div class="bill-summary-card">
+            <div class="bill-item-line">
+              <span>Zwischensumme:</span>
+              <span id="billSubtotal">0,00 €</span>
+            </div>
+            <div class="bill-item-line" id="billDeliveryRow" style="display: none;">
+              <span>Lieferpauschale (Mayen):</span>
+              <span id="billDeliveryFee">Kostenlos ab 15 €</span>
+            </div>
+            <div class="bill-item-line total-line">
+              <span>Gesamtsumme:</span>
+              <span id="billTotal">0,00 €</span>
+            </div>
+          </div>
+
+          <!-- Order Actions -->
+          <div style="display: flex; flex-direction: column; gap: 9px; margin-top: 6px;">
+            <a href="#" id="btnSendWhatsapp" class="btn-send-whatsapp-order" onclick="sendWhatsappOrder(event)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.41a8.17 8.17 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24h-.18zm4.52 11.66c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.12-.17.25-.65.81-.8 1-.15.19-.3.21-.55.08-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.78 2.72 4.31 3.81.6.26 1.07.42 1.44.53.61.2 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.07-.11-.23-.17-.48-.3z"/></svg>
+              <span>Bestellung per WhatsApp senden</span>
+            </a>
+
+            <a href="tel:+4916091401318" class="btn-secondary-phone">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>Lieber anrufen (0160 9140 1318)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: TABLE QR CODE ==================== -->
+    <div class="modal-overlay" id="qrModalBackdrop" onclick="closeQrModal(event)">
+      <div class="modal-container" id="qrModalSheet" onclick="event.stopPropagation()">
+        <div class="modal-head">
+          <h3 class="modal-head-title">Speisekarte am Tisch</h3>
+          <button type="button" class="modal-btn-close" onclick="closeQrModal()" title="Schließen" aria-label="Schließen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="qr-center-box">
+          <p style="font-size: 0.86rem; color: var(--text-secondary);">Kamera auf den QR-Code richten, um die digitale Speisekarte sofort im Smartphone-Browser zu öffnen:</p>
+
+          <div class="qr-white-frame">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="Tisch QR Code">
+              <rect width="200" height="200" fill="#ffffff"/>
+              <!-- Position markers -->
+              <rect x="20" y="20" width="50" height="50" fill="#0f1115" rx="6"/>
+              <rect x="28" y="28" width="34" height="34" fill="#ffffff" rx="3"/>
+              <rect x="36" y="36" width="18" height="18" fill="#d96b43" rx="2"/>
+
+              <rect x="130" y="20" width="50" height="50" fill="#0f1115" rx="6"/>
+              <rect x="138" y="28" width="34" height="34" fill="#ffffff" rx="3"/>
+              <rect x="146" y="36" width="18" height="18" fill="#d96b43" rx="2"/>
+
+              <rect x="20" y="130" width="50" height="50" fill="#0f1115" rx="6"/>
+              <rect x="28" y="138" width="34" height="34" fill="#ffffff" rx="3"/>
+              <rect x="36" y="146" width="18" height="18" fill="#d96b43" rx="2"/>
+
+              <!-- Data matrix dots -->
+              <rect x="80" y="25" width="12" height="12" fill="#1e293b"/>
+              <rect x="100" y="25" width="12" height="12" fill="#1e293b"/>
+              <rect x="80" y="45" width="12" height="12" fill="#d96b43"/>
+              <rect x="105" y="55" width="12" height="12" fill="#1e293b"/>
+              <rect x="85" y="75" width="12" height="12" fill="#1e293b"/>
+              <rect x="105" y="85" width="12" height="12" fill="#1e293b"/>
+
+              <rect x="25" y="80" width="12" height="12" fill="#1e293b"/>
+              <rect x="45" y="80" width="12" height="12" fill="#1e293b"/>
+              <rect x="30" y="105" width="12" height="12" fill="#d96b43"/>
+              <rect x="55" y="105" width="12" height="12" fill="#1e293b"/>
+
+              <rect x="130" y="80" width="12" height="12" fill="#1e293b"/>
+              <rect x="155" y="80" width="12" height="12" fill="#1e293b"/>
+              <rect x="140" y="105" width="12" height="12" fill="#d96b43"/>
+              <rect x="165" y="105" width="12" height="12" fill="#1e293b"/>
+
+              <rect x="80" y="130" width="12" height="12" fill="#1e293b"/>
+              <rect x="105" y="130" width="12" height="12" fill="#1e293b"/>
+              <rect x="80" y="155" width="12" height="12" fill="#d96b43"/>
+              <rect x="105" y="155" width="12" height="12" fill="#1e293b"/>
+              <rect x="130" y="145" width="12" height="12" fill="#1e293b"/>
+              <rect x="155" y="145" width="12" height="12" fill="#1e293b"/>
+              <rect x="140" y="168" width="12" height="12" fill="#1e293b"/>
+              <rect x="165" y="168" width="12" height="12" fill="#d96b43"/>
+
+              <rect x="84" y="84" width="32" height="32" fill="#ffffff" rx="4"/>
+              <circle cx="100" cy="100" r="13" fill="#d96b43"/>
+              <text x="100" y="105" font-size="12" font-family="'Fraunces', serif" font-weight="bold" fill="#ffffff" text-anchor="middle">DP</text>
+            </svg>
+          </div>
+
+          <div style="font-family: var(--font-display); font-size: 1.15rem; color: var(--text-primary);">
+            Ristorante Pizzeria Pugliese Mayen
+          </div>
+          <p style="font-size: 0.78rem; color: var(--text-tertiary); max-width: 320px;">
+            Ideal am Gästetisch oder an der Theke. Gäste scannen den Code und haben direkt die vollständige Karte mit Fotos auf ihrem Display.
+          </p>
+          <button type="button" class="btn-magnetic btn-magnetic-primary" style="width: 100%;" onclick="closeQrModal()">Schließen</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: LEGAL (IMPRESSUM & DATENSCHUTZ) ==================== -->
+    <div class="modal-overlay" id="legalModalBackdrop" onclick="closeLegalModal(event)">
+      <div class="modal-container" id="legalModalSheet" onclick="event.stopPropagation()">
+        <div class="modal-head">
+          <h3 class="modal-head-title" id="legalModalTitle">Rechtliche Hinweise</h3>
+          <button type="button" class="modal-btn-close" onclick="closeLegalModal()" title="Schließen" aria-label="Schließen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="modal-scrollable" id="legalModalContent">
+          <!-- Dynamically populated -->
+        </div>
+        <div class="modal-foot-bar">
+          <button type="button" class="btn-modal-add-cart" style="width: 100%;" onclick="closeLegalModal()">Schließen</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiet Toast Notification -->
+    <div class="quiet-toast" id="toastMsg" role="status" aria-live="polite">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="toastText">Zum Bestellzettel hinzugefügt</span>
+    </div>
+
+  </div> <!-- End .app-container -->
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="flagship-footer" id="kontakt">
+    <div class="footer-inner">
+      <div class="footer-cols">
+        <div>
+          <h3 class="footer-brand-h3">Ristorante Pizzeria <span class="accent-word">Pugliese</span></h3>
+          <p class="footer-text-p">
+            Auf'm Hügelchen<br>
+            56727 Mayen (Rheinland-Pfalz)<br>
+            Telefon: <a href="tel:+4916091401318" style="color: var(--text-primary); text-decoration: underline;">0160 / 9140 1318</a><br>
+            WhatsApp: +49 151 23456789
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Öffnungszeiten</h4>
+          <table class="hours-table-foot">
+            <tr><td>Montag:</td><td align="right">Ruhetag (außer Feiertags)</td></tr>
+            <tr class="today-highlight"><td>Dienstag – Freitag:</td><td align="right">11:30 – 22:30 Uhr</td></tr>
+            <tr><td>Samstag:</td><td align="right">12:00 – 23:00 Uhr</td></tr>
+            <tr><td>Sonntag &amp; Feiertage:</td><td align="right">12:00 – 22:30 Uhr</td></tr>
+          </table>
+          <p style="font-size: 0.74rem; color: var(--text-tertiary); margin-top: 8px;">
+            Zubereitung zur Abholung ca. 15–25 Min. Apulische Spezialitäten & Steinofen-Pizza. Beispieldaten - Demo.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Allergene &amp; Fleisch</h4>
+          <p class="footer-text-p" style="font-size: 0.78rem;">
+            A: Glutenhaltiges Getreide / C: Eier / D: Fisch / G: Milch &amp; Laktose / H: Schalenfrüchte (Pistazien) / K: Sesam.<br><br>
+            Drehspieß Kalb und Hähnchen zu 100% aus zertifizierter Halal-Schlachtung.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-legal-bar">
+        <span>&copy; 2026 Ristorante Pizzeria Pugliese Mayen &bull; Beispieldaten - Demo</span>
+        <div class="footer-links-inline">
+          <button type="button" onclick="openLegalModal('impressum')">Impressum</button>
+          <button type="button" onclick="openLegalModal('datenschutz')">Datenschutz</button>
+          <a href="#">
+            <span>Nach oben</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== COMPLETE MENU LOGIC JAVASCRIPT ==================== -->
+  <script>
+    // ----------------------------------------------------
+    // Database of dishes (Parity with working menu)
+    // ----------------------------------------------------
+const DISHES = {
+      // Döner Spezialitäten (6 dishes)
+      'd1': {
+        title: 'Klassischer Döner Kebab',
+        desc: 'Dünn geschnittenes Kalb- oder Hähnchenfleisch im getoasteten Viertelfladenbrot. Dazu Eisbergsalat, Rotkohl, Tomaten, Gurken, Zwiebeln und Kräutersauce.',
+        basePrice: 7.50,
+        image: 'images/doner_kebab.jpg',
+        sizes: [
+          { name: 'Normaler Döner', priceDelta: 0 },
+          { name: 'Großer Döner (Extra Fleisch)', priceDelta: 2.00 },
+          { name: 'Kleiner Döner', priceDelta: -1.50 }
+        ],
+        sauces: [
+          { name: 'Kräuter-Knoblauchsauce (Hausgemacht)', default: true },
+          { name: 'Scharfe Chilisauce (Pul Biber)', default: false },
+          { name: 'Cocktailsauce', default: false },
+          { name: 'Tzatziki mit Gurke & Dill', default: false },
+          { name: 'Ohne Sauce', default: false }
+        ],
+        extras: [
+          { name: 'Extra Hirtenkäse', price: 1.20 },
+          { name: 'Jalapeños', price: 0.80 },
+          { name: 'Doppelt Fleisch', price: 2.50 },
+          { name: 'Gegrilltes Gemüse', price: 1.50 }
+        ]
+      },
+      'd2': {
+        title: 'Dürüm Döner',
+        desc: 'Drehspießfleisch, Salat und Sauce nach Wahl in hauchdünnem Yufka-Teig eingerollt und auf dem Kontaktgrill kross getoastet.',
+        basePrice: 8.50,
+        image: 'images/durum_doner.jpg',
+        sizes: [
+          { name: 'Standard Dürüm', priceDelta: 0 },
+          { name: 'XXL Jumbo Dürüm', priceDelta: 2.00 }
+        ],
+        sauces: [
+          { name: 'Kräuter-Knoblauchsauce', default: true },
+          { name: 'Scharfe Chilisauce', default: false },
+          { name: 'Cocktailsauce', default: false },
+          { name: 'Tzatziki', default: false }
+        ],
+        extras: [
+          { name: 'Mit Käse im Ofen überbacken', price: 2.00 },
+          { name: 'Extra Hirtenkäse', price: 1.20 },
+          { name: 'Extra Jalapeños', price: 0.80 }
+        ]
+      },
+      'd3': {
+        title: 'Döner-Teller mit Beilage',
+        desc: 'Große Portion Drehspießfleisch mit Pommes frites oder Butterreis, buntem Beilagensalat, zwei Saucen und Fladenbrot.',
+        basePrice: 12.90,
+        image: 'images/donerteller.jpg',
+        sizes: [
+          { name: 'Teller mit Pommes frites', priceDelta: 0 },
+          { name: 'Teller mit Butterreis', priceDelta: 0 },
+          { name: 'Großer Teller (Doppel-Fleisch)', priceDelta: 3.50 }
+        ],
+        sauces: [
+          { name: 'Knoblauch- & Kräutersauce', default: true },
+          { name: 'Knoblauch- & Scharfe Sauce', default: false },
+          { name: 'Tzatziki & Cocktailsauce', default: false }
+        ],
+        extras: [
+          { name: 'Mit Gouda überbacken', price: 2.50 },
+          { name: 'Extra Portion Pommes', price: 3.00 },
+          { name: 'Extra Hirtenkäse', price: 1.20 }
+        ]
+      },
+      'd4': {
+        title: 'Döner-Box',
+        desc: 'Drehspießfleisch mit knusprigen Pommes frites oder Salat und Sauce in der praktischen Mitnahmebox für unterwegs.',
+        basePrice: 6.50,
+        image: 'images/doner_box.jpg',
+        sizes: [
+          { name: 'Kleine Box (mit Pommes)', priceDelta: 0 },
+          { name: 'Große Box (mit Pommes)', priceDelta: 1.50 },
+          { name: 'Box mit Salat statt Pommes', priceDelta: 0.50 }
+        ],
+        sauces: [
+          { name: 'Kräuter-Knoblauchsauce', default: true },
+          { name: 'Scharfe Sauce', default: false },
+          { name: 'Cocktailsauce', default: false }
+        ],
+        extras: [
+          { name: 'Extra Käse über Pommes', price: 1.20 },
+          { name: 'Jalapeños', price: 0.80 }
+        ]
+      },
+      'd5': {
+        title: 'Falafel im Fladenbrot',
+        desc: 'Vier frittierte Kichererbsenbällchen mit Kreuzkümmel und Petersilie im Fladenbrot. Mit Sesamsauce (Tahini), Minze, Gurken und Tomaten.',
+        basePrice: 7.00,
+        image: 'images/falafel.jpg',
+        sizes: [
+          { name: 'Im Fladenbrot', priceDelta: 0 },
+          { name: 'Als gerollter Dürüm Wrap', priceDelta: 1.00 }
+        ],
+        sauces: [
+          { name: 'Tahini-Sesamsauce (Vegan)', default: true },
+          { name: 'Kräuter-Knoblauchsauce', default: false },
+          { name: 'Pikante Scharfe Sauce', default: false }
+        ],
+        extras: [
+          { name: 'Hirtenkäse (Vegetarisch)', price: 1.20 },
+          { name: 'Gegrilltes Gemüse', price: 1.50 },
+          { name: 'Extra 2x Falafel', price: 1.80 }
+        ]
+      },
+      'd6': {
+        title: 'Halloumi Dürüm',
+        desc: 'Zypriotischer Grillkäse kurz angebraten, im Yufka-Fladen eingerollt mit Rucola, Tomaten, Gurken und Joghurt-Kräuter-Sauce.',
+        basePrice: 8.00,
+        image: 'images/halloumi_durum.jpg',
+        sizes: [
+          { name: 'Standard Wrap', priceDelta: 0 },
+          { name: 'XXL mit doppelt Halloumi', priceDelta: 2.50 }
+        ],
+        sauces: [
+          { name: 'Kräuter-Joghurt Sauce', default: true },
+          { name: 'Cocktailsauce', default: false },
+          { name: 'Scharfe Sauce', default: false }
+        ],
+        extras: [
+          { name: 'Avocado-Creme', price: 1.50 },
+          { name: 'Jalapeños', price: 0.80 }
+        ]
+      },
+
+      // Steinofen-Pizzen (7 dishes)
+      'p1': {
+        title: 'Pizza Margherita',
+        desc: 'Hausgemachte Tomatensauce aus italienischen Tomaten, Fior di Latte Mozzarella, Olivenöl und frisches Basilikum. Auf Stein gebacken.',
+        basePrice: 8.00,
+        image: 'images/pizza_margherita.jpg',
+        sizes: [
+          { name: 'Normal Ø 28cm', priceDelta: 0 },
+          { name: 'Groß Ø 32cm', priceDelta: 2.50 },
+          { name: 'Familien-Blech 45x32cm', priceDelta: 14.00 }
+        ],
+        sauces: [],
+        extras: [
+          { name: 'Extra Mozzarella', price: 1.50 },
+          { name: 'Frischer Rucola & Grana Padano', price: 2.00 },
+          { name: 'Knoblauchöl am Rand', price: 0.50 }
+        ]
+      },
+      'p2': {
+        title: 'Pizza Sucuk',
+        desc: 'Würzige Rinderknoblauchwurst (Sucuk), Mozzarella, Hirtenkäse, milde Peperoni und rote Zwiebeln.',
+        basePrice: 10.50,
+        image: 'images/pizza_sucuk.jpg',
+        sizes: [
+          { name: 'Normal Ø 28cm', priceDelta: 0 },
+          { name: 'Groß Ø 32cm', priceDelta: 2.50 },
+          { name: 'Familien-Blech 45x32cm', priceDelta: 14.50 }
+        ],
+        sauces: [],
+        extras: [
+          { name: 'Jalapeños', price: 0.80 },
+          { name: 'Doppelt Sucuk Wurst', price: 2.00 },
+          { name: 'Extra Käse', price: 1.50 }
+        ]
+      },
+      'p3': {
+        title: 'Pizza Döner',
+        desc: 'Kalbdrehspießfleisch, Tomatensauce, Mozzarella, rote Zwiebeln und nach dem Backen mit milder Knoblauchsauce verfeinert.',
+        basePrice: 11.00,
+        image: 'images/pizza_doner.jpg',
+        sizes: [
+          { name: 'Normal Ø 28cm', priceDelta: 0 },
+          { name: 'Groß Ø 32cm', priceDelta: 2.50 },
+          { name: 'Familien-Blech 45x32cm', priceDelta: 15.00 }
+        ],
+        sauces: [],
+        extras: [
+          { name: 'Scharfe Chilisauce extra', price: 0.50 },
+          { name: 'Hirtenkäse', price: 1.20 },
+          { name: 'Extra Fleisch', price: 2.50 }
+        ]
+      },
+      'p4': {
+        title: 'Pizza Salami',
+        desc: 'Rindersalami, Tomatensauce, Mozzarella und gerebelter Oregano.',
+        basePrice: 9.50,
+        image: 'images/pizza_salami.jpg',
+        sizes: [
+          { name: 'Normal Ø 28cm', priceDelta: 0 },
+          { name: 'Groß Ø 32cm', priceDelta: 2.50 },
+          { name: 'Familien-Blech 45x32cm', priceDelta: 14.00 }
+        ],
+        sauces: [],
+        extras: [
+          { name: 'Champignons frisch', price: 1.20 },
+          { name: 'Doppelt Salami', price: 1.80 },
+          { name: 'Knoblauchöl', price: 0.50 }
+        ]
+      },
+      'p5': {
+        title: 'Pizza Tonno e Cipolla',
+        desc: 'Thunfischfilet, dünn gehobelte rote Zwiebeln, Tomatensauce, Mozzarella und Oregano.',
+        basePrice: 10.00,
+        image: 'images/pizza_tonno.jpg',
+        sizes: [
+          { name: 'Normal Ø 28cm', priceDelta: 0 },
+          { name: 'Groß Ø 32cm', priceDelta: 2.50 },
+          { name: 'Familien-Blech 45x32cm', priceDelta: 14.50 }
+        ],
+        sauces: [],
+        extras: [
+          { name: 'Kalamata-Oliven', price: 1.00 },
+          { name: 'Peperoni mild', price: 0.80 },
+          { name: 'Extra Thunfisch', price: 2.00 }
+        ]
+      },
+      'p6': {
+        title: 'Pizza Vegetaria',
+        desc: 'Frische braune Champignons, rote Paprika, Zucchini, Artischockenherzen und Mozzarella.',
+        basePrice: 10.00,
+        image: 'images/pizza_vegetaria.jpg',
+        sizes: [
+          { name: 'Normal Ø 28cm', priceDelta: 0 },
+          { name: 'Groß Ø 32cm', priceDelta: 2.50 },
+          { name: 'Familien-Blech 45x32cm', priceDelta: 14.50 }
+        ],
+        sauces: [],
+        extras: [
+          { name: 'Hirtenkäse', price: 1.20 },
+          { name: 'Frischer Rucola', price: 1.50 },
+          { name: 'Kalamata-Oliven', price: 1.00 }
+        ]
+      },
+      'p7': {
+        title: 'Calzone Döner',
+        desc: 'Gefüllte Teigtasche mit Kalbdrehspießfleisch, Tomatensauce, Champignons und Mozzarella, im Steinofen goldbraun gebacken.',
+        basePrice: 11.50,
+        image: 'images/calzone.jpg',
+        sizes: [
+          { name: 'Standard Calzone Ø 28cm', priceDelta: 0 }
+        ],
+        sauces: [],
+        extras: [
+          { name: 'Mit Knoblauchsauce obenauf', price: 0.50 },
+          { name: 'Jalapeños im Inneren', price: 0.80 }
+        ]
+      },
+
+      // Burger (4 dishes)
+      'b1': {
+        title: 'Classic Cheeseburger',
+        desc: '150 g Rinder-Patty, irischer Cheddar, Gewürzgurken, Tomate, rote Zwiebeln und Haussauce im getoasteten Brioche-Bun. Inklusive Pommes.',
+        basePrice: 10.50,
+        image: 'images/burger_cheeseburger.jpg',
+        sizes: [
+          { name: 'Single 150g Patty', priceDelta: 0 },
+          { name: 'Double Patty 300g Beef', priceDelta: 3.50 }
+        ],
+        sauces: [
+          { name: 'Hausgemachte Burgersauce', default: true },
+          { name: 'Ketchup & Mayo', default: false },
+          { name: 'BBQ-Sauce', default: false }
+        ],
+        extras: [
+          { name: 'Doppel Cheddar-Käse', price: 1.00 },
+          { name: 'Knuspriger Rinderspeck', price: 1.50 },
+          { name: 'Jalapeños', price: 0.80 }
+        ]
+      },
+      'b2': {
+        title: 'Rigatoni alla Bolognese Classica',
+        desc: 'Paniertes Hähnchenbrustfilet, Eisbergsalat, Tomate, Gewürzgurken und milde Burgersauce im Brioche-Bun. Inklusive Pommes.',
+        basePrice: 10.50,
+        image: 'images/burger_chicken.jpg',
+        sizes: [
+          { name: 'Standard Burger Menu', priceDelta: 0 }
+        ],
+        sauces: [
+          { name: 'Kräuter-Remoulade', default: true },
+          { name: 'Sweet Chili Sauce', default: false },
+          { name: 'Knoblauchsauce', default: false }
+        ],
+        extras: [
+          { name: 'Cheddarkäse schmelzend', price: 1.00 },
+          { name: 'Jalapeños', price: 0.80 }
+        ]
+      },
+      'b3': {
+        title: 'BBQ Beef Burger',
+        desc: '150 g Rinder-Patty mit krossem Rinderspeck, geschmorten Zwiebeln, Cheddar und rauchiger Barbecue-Sauce im Brioche-Bun. Inklusive Pommes.',
+        basePrice: 11.50,
+        image: 'images/burger_bbq.jpg',
+        sizes: [
+          { name: 'Single 150g Patty', priceDelta: 0 },
+          { name: 'Double 300g Patty', priceDelta: 3.50 }
+        ],
+        sauces: [
+          { name: 'Smokey Barbecue Sauce', default: true },
+          { name: 'Scharfe Chilisauce', default: false }
+        ],
+        extras: [
+          { name: 'Extra Rinderspeck', price: 1.50 },
+          { name: 'Doppel Cheddar', price: 1.00 },
+          { name: 'Spiegelei', price: 1.20 }
+        ]
+      },
+      'b4': {
+        title: 'Halloumi Burger',
+        desc: 'Gegrillter Halloumi-Käse, hausgemachte Avocadocreme, Rucola, Tomatenscheibe und Kräutersauce im Brioche-Bun. Inklusive Pommes.',
+        basePrice: 10.00,
+        image: 'images/burger_veggie.jpg',
+        sizes: [
+          { name: 'Standard Menu', priceDelta: 0 }
+        ],
+        sauces: [
+          { name: 'Avocado-Kräuter-Creme', default: true },
+          { name: 'Cocktailsauce', default: false }
+        ],
+        extras: [
+          { name: 'Doppelt Halloumi', price: 2.00 },
+          { name: 'Jalapeños', price: 0.80 }
+        ]
+      },
+
+      // Salate (4 dishes)
+      's1': {
+        title: 'Bauernsalat mit Hirtenkäse',
+        desc: 'Rispentomaten, Gurken, Hirtenkäse aus Kuhmilch, Kalamata-Oliven und rote Zwiebeln mit Olivenöl und Oregano. Dazu Brot.',
+        basePrice: 8.50,
+        image: 'images/salat_bauernsalat.jpg',
+        sizes: [
+          { name: 'Große Salatschüssel', priceDelta: 0 }
+        ],
+        sauces: [
+          { name: 'Natives Olivenöl & Weinessig', default: true },
+          { name: 'Joghurt-Kräuter-Dressing', default: false }
+        ],
+        extras: [
+          { name: 'Extra Hirtenkäse', price: 1.50 },
+          { name: 'Milde Peperoni', price: 0.80 }
+        ]
+      },
+      's2': {
+        title: 'Döner-Salat-Bowl',
+        desc: 'Geschnittenes Kalbdrehspießfleisch auf gemischtem Blattsalat mit Gurken, Tomaten, Rotkohl und Joghurt-Kräuter-Dressing.',
+        basePrice: 9.50,
+        image: 'images/salat_donerbowl.jpg',
+        sizes: [
+          { name: 'Standard Bowl', priceDelta: 0 },
+          { name: 'Große Bowl (Extra Fleisch)', priceDelta: 2.50 }
+        ],
+        sauces: [
+          { name: 'Joghurt-Kräuter-Dressing', default: true },
+          { name: 'Knoblauchsauce & Scharf', default: false },
+          { name: 'Essig & Öl', default: false }
+        ],
+        extras: [
+          { name: 'Hirtenkäse', price: 1.20 },
+          { name: 'Jalapeños', price: 0.80 }
+        ]
+      },
+      's3': {
+        title: 'Caesar Bowl mit Hähnchen',
+        desc: 'Römersalat, gebratene Hähnchenbruststreifen, Fladenbrot-Croutons, Grana Padano und cremiges Caesar-Dressing.',
+        basePrice: 9.50,
+        image: 'images/salat_caesar.jpg',
+        sizes: [
+          { name: 'Standard Bowl', priceDelta: 0 }
+        ],
+        sauces: [
+          { name: 'Original Caesar Dressing', default: true },
+          { name: 'Joghurt-Kräuter Dressing', default: false }
+        ],
+        extras: [
+          { name: 'Extra Hähnchenbrust', price: 2.20 },
+          { name: 'Extra Parmesan-Hobel', price: 1.20 }
+        ]
+      },
+      's4': {
+        title: 'Falafel-Bowl mit Hummus',
+        desc: 'Vier Falafelbällchen auf Blattsalat mit hausgemachtem Kichererbsen-Hummus, Tomaten, Gurken, Granatapfelkernen und Tahini-Dressing.',
+        basePrice: 8.90,
+        image: 'images/salat_falafelbowl.jpg',
+        sizes: [
+          { name: 'Standard Bowl', priceDelta: 0 }
+        ],
+        sauces: [
+          { name: 'Sesam-Tahini-Dressing', default: true },
+          { name: 'Kräuter-Joghurt Dressing', default: false }
+        ],
+        extras: [
+          { name: 'Extra 2x Falafel', price: 1.80 },
+          { name: 'Hirtenkäse', price: 1.20 }
+        ]
+      },
+
+      // Getränke & Dessert (5 dishes)
+      'g1': {
+        title: 'Ayran',
+        desc: 'Türkisches Joghurtgetränk mit Wasser und einer Prise Meersalz, gekühlt (0,25 l Becher).',
+        basePrice: 1.80,
+        image: 'images/getraenk_ayran.jpg',
+        sizes: [
+          { name: '0,25 l Becher', priceDelta: 0 }
+        ],
+        sauces: [],
+        extras: []
+      },
+      'g2': {
+        title: 'Uludağ Gazoz',
+        desc: 'Türkische Limonade mit leichter Waldmeister- und Zitrusnote, gekühlt in der Dose (0,33 l).',
+        basePrice: 2.50,
+        image: 'images/getraenk_uludag.jpg',
+        sizes: [
+          { name: '0,33 l Dose', priceDelta: 0 }
+        ],
+        sauces: [],
+        extras: []
+      },
+      'g3': {
+        title: 'fritz-kola & Limonaden',
+        desc: 'Koffeinhaltige Cola oder fruchtige Limonade in der Glasflasche (0,33 l, Auswahl vor Ort).',
+        basePrice: 2.80,
+        image: 'images/getraenk_fritz.jpg',
+        sizes: [
+          { name: 'fritz-kola Original', priceDelta: 0 },
+          { name: 'fritz-kola Ohne Zucker', priceDelta: 0 },
+          { name: 'fritz-limo Orange', priceDelta: 0 }
+        ],
+        sauces: [],
+        extras: []
+      },
+      'g4': {
+        title: 'Erfrischungsgetränke',
+        desc: 'Coca-Cola, Coca-Cola Zero, Fanta Orange oder Mezzo Mix, gekühlt in der Dose (0,33 l).',
+        basePrice: 2.50,
+        image: 'images/getraenk_cola.jpg',
+        sizes: [
+          { name: 'Coca-Cola Classic 0,33l', priceDelta: 0 },
+          { name: 'Coca-Cola Zero 0,33l', priceDelta: 0 },
+          { name: 'Fanta Orange 0,33l', priceDelta: 0 },
+          { name: 'Mezzo Mix 0,33l', priceDelta: 0 }
+        ],
+        sauces: [],
+        extras: []
+      },
+      'g5': {
+        title: 'Baklava mit Pistazien',
+        desc: 'Vier Stücke orientalisches Blätterteiggebäck, geschichtet mit gehackten Pistazien und Zuckersirup.',
+        basePrice: 4.50,
+        image: 'images/dessert_baklava.jpg',
+        sizes: [
+          { name: 'Portion mit 4 Stück', priceDelta: 0 },
+          { name: 'Große Portion mit 8 Stück', priceDelta: 4.00 }
+        ],
+        sauces: [],
+        extras: []
+      }
+    };
+
+    // ----------------------------------------------------
+    // Application State
+    // ----------------------------------------------------
+
+    // ----------------------------------------------------
+    // Application State
+    // ----------------------------------------------------
+    let cart = [];
+    let currentDishId = null;
+    let modalQty = 1;
+    let orderType = 'pickup';
+    let currentTagFilter = 'all';
+
+    // ----------------------------------------------------
+    // Modal: Dish Customizer
+    // ----------------------------------------------------
+    function openDishModal(dishId) {
+      const dish = DISHES[dishId];
+      if (!dish) return;
+
+      currentDishId = dishId;
+      modalQty = 1;
+      document.getElementById('modalQtyDisplay').textContent = '1';
+
+      document.getElementById('modalDishTitle').textContent = dish.title;
+      document.getElementById('modalDishDesc').textContent = dish.desc;
+      document.getElementById('modalDishImage').src = dish.image;
+      document.getElementById('modalSpecialNotes').value = '';
+
+      // Sizes
+      const sizeSection = document.getElementById('modalSizeSection');
+      const sizeGroup = document.getElementById('modalSizeGroup');
+      sizeGroup.innerHTML = '';
+      if (dish.sizes && dish.sizes.length > 0) {
+        sizeSection.style.display = 'block';
+        dish.sizes.forEach((s, idx) => {
+          const deltaText = s.priceDelta > 0 ? `+${s.priceDelta.toFixed(2).replace('.', ',')} €` :
+                           s.priceDelta < 0 ? `${s.priceDelta.toFixed(2).replace('.', ',')} €` : '';
+          const checked = idx === 0 ? 'checked' : '';
+          sizeGroup.innerHTML += `
+            <label class="option-card-label">
+              <div class="option-name-part">
+                <input type="radio" name="modalSize" value="${idx}" ${checked} onchange="updateModalPrice()">
+                <span>${s.name}</span>
+              </div>
+              <span class="option-diff-price">${deltaText}</span>
+            </label>
+          `;
+        });
+      } else {
+        sizeSection.style.display = 'none';
+      }
+
+      // Sauces
+      const sauceSection = document.getElementById('modalSauceSection');
+      const sauceGroup = document.getElementById('modalSauceGroup');
+      sauceGroup.innerHTML = '';
+      if (dish.sauces && dish.sauces.length > 0) {
+        sauceSection.style.display = 'block';
+        dish.sauces.forEach((sc, idx) => {
+          const checked = sc.default ? 'checked' : '';
+          sauceGroup.innerHTML += `
+            <label class="option-card-label">
+              <div class="option-name-part">
+                <input type="radio" name="modalSauce" value="${sc.name}" ${checked}>
+                <span>${sc.name}</span>
+              </div>
+            </label>
+          `;
+        });
+      } else {
+        sauceSection.style.display = 'none';
+      }
+
+      // Extras
+      const extrasSection = document.getElementById('modalExtrasSection');
+      const extrasGroup = document.getElementById('modalExtrasGroup');
+      extrasGroup.innerHTML = '';
+      if (dish.extras && dish.extras.length > 0) {
+        extrasSection.style.display = 'block';
+        dish.extras.forEach((ex, idx) => {
+          extrasGroup.innerHTML += `
+            <label class="option-card-label">
+              <div class="option-name-part">
+                <input type="checkbox" name="modalExtra" value="${idx}" onchange="updateModalPrice()">
+                <span>${ex.name}</span>
+              </div>
+              <span class="option-diff-price">+${ex.price.toFixed(2).replace('.', ',')} €</span>
+            </label>
+          `;
+        });
+      } else {
+        extrasSection.style.display = 'none';
+      }
+
+      updateModalPrice();
+      document.getElementById('dishModalBackdrop').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDishModal(e) {
+      if (e && e.target !== e.currentTarget && !e.target.closest('.modal-btn-close')) return;
+      document.getElementById('dishModalBackdrop').classList.remove('active');
+      document.body.style.overflow = '';
+      currentDishId = null;
+    }
+
+    function incrementModalQty() {
+      modalQty++;
+      document.getElementById('modalQtyDisplay').textContent = modalQty;
+      updateModalPrice();
+    }
+
+    function decrementModalQty() {
+      if (modalQty > 1) {
+        modalQty--;
+        document.getElementById('modalQtyDisplay').textContent = modalQty;
+        updateModalPrice();
+      }
+    }
+
+    function calculateSingleItemPrice() {
+      if (!currentDishId || !DISHES[currentDishId]) return 0;
+      const dish = DISHES[currentDishId];
+      let price = dish.basePrice;
+
+      const selectedSizeRadio = document.querySelector('input[name="modalSize"]:checked');
+      if (selectedSizeRadio && dish.sizes[selectedSizeRadio.value]) {
+        price += dish.sizes[selectedSizeRadio.value].priceDelta;
+      }
+
+      const checkedExtras = document.querySelectorAll('input[name="modalExtra"]:checked');
+      checkedExtras.forEach(cb => {
+        const extraObj = dish.extras[cb.value];
+        if (extraObj) price += extraObj.price;
+      });
+
+      return price;
+    }
+
+    function updateModalPrice() {
+      const singlePrice = calculateSingleItemPrice();
+      const totalPrice = singlePrice * modalQty;
+      document.getElementById('modalFinalPrice').textContent = `${totalPrice.toFixed(2).replace('.', ',')} €`;
+    }
+
+    function commitDishToCart() {
+      if (!currentDishId || !DISHES[currentDishId]) return;
+      const dish = DISHES[currentDishId];
+
+      let sizeName = '';
+      const selectedSizeRadio = document.querySelector('input[name="modalSize"]:checked');
+      if (selectedSizeRadio && dish.sizes[selectedSizeRadio.value]) {
+        sizeName = dish.sizes[selectedSizeRadio.value].name;
+      }
+
+      let sauceName = '';
+      const selectedSauceRadio = document.querySelector('input[name="modalSauce"]:checked');
+      if (selectedSauceRadio) {
+        sauceName = selectedSauceRadio.value;
+      }
+
+      let extrasList = [];
+      const checkedExtras = document.querySelectorAll('input[name="modalExtra"]:checked');
+      checkedExtras.forEach(cb => {
+        const ex = dish.extras[cb.value];
+        if (ex) extrasList.push(ex.name);
+      });
+
+      const notes = document.getElementById('modalSpecialNotes').value.trim();
+
+      cart.push({
+        id: 'cart_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+        dishId: currentDishId,
+        title: dish.title,
+        singlePrice: calculateSingleItemPrice(),
+        size: sizeName,
+        sauce: sauceName,
+        extras: extrasList,
+        notes: notes,
+        qty: modalQty
+      });
+
+      closeDishModal();
+      renderCartUI();
+      showToast(`${dish.title} hinzugefügt`);
+    }
+
+    // ----------------------------------------------------
+    // Cart & Checkout UI
+    // ----------------------------------------------------
+    function renderCartUI() {
+      const floatingBar = document.getElementById('floatingCartPill');
+      const headerCartCount = document.getElementById('headerCartCount');
+      let totalQty = 0;
+      let subtotal = 0;
+
+      cart.forEach(item => {
+        totalQty += item.qty;
+        subtotal += item.singlePrice * item.qty;
+      });
+
+      if (headerCartCount) {
+        headerCartCount.textContent = totalQty;
+      }
+
+      if (totalQty > 0) {
+        floatingBar.classList.remove('hidden');
+        document.getElementById('cartCountBadge').textContent = totalQty;
+        document.getElementById('cartSumText').textContent = `${subtotal.toFixed(2).replace('.', ',')} €`;
+      } else {
+        floatingBar.classList.add('hidden');
+      }
+
+      const listContainer = document.getElementById('cartItemsList');
+      if (cart.length === 0) {
+        listContainer.innerHTML = `
+          <div style="text-align: center; padding: 48px 20px; color: var(--text-secondary);">
+            <div style="margin-bottom: 12px; color: var(--accent); opacity: 0.5;">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </div>
+            <div style="font-weight: 600; color: var(--text-primary); font-size: 1rem;">Ihr Bestellzettel ist leer</div>
+            <div style="font-size: 0.82rem; margin-top: 4px; color: var(--text-tertiary);">Wählen Sie Gerichte aus der Speisekarte aus.</div>
+          </div>
+        `;
+      } else {
+        listContainer.innerHTML = '';
+        cart.forEach((item, index) => {
+          const itemTotal = (item.singlePrice * item.qty).toFixed(2).replace('.', ',');
+          let subDetails = [];
+          if (item.size) subDetails.push(item.size);
+          if (item.sauce) subDetails.push(item.sauce);
+          if (item.extras && item.extras.length > 0) subDetails.push(item.extras.join(', '));
+          if (item.notes) subDetails.push(`Notiz: "${item.notes}"`);
+
+          listContainer.innerHTML += `
+            <div class="cart-row-item">
+              <div class="cart-item-meta">
+                <div class="cart-item-name">${item.qty}x ${item.title}</div>
+                ${subDetails.length > 0 ? `<div class="cart-item-options">${subDetails.join(' / ')}</div>` : ''}
+              </div>
+              <div class="cart-item-control">
+                <span class="cart-item-cost">${itemTotal} €</span>
+                <div class="qty-counter-control" style="transform: scale(0.9); transform-origin: right center;">
+                  <button type="button" class="qty-btn-adjust" onclick="updateCartItemQty(${index}, -1)" aria-label="Menge verringern">-</button>
+                  <span class="qty-val-display">${item.qty}</span>
+                  <button type="button" class="qty-btn-adjust" onclick="updateCartItemQty(${index}, 1)" aria-label="Menge erhöhen">+</button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Calculate totals
+      document.getElementById('billSubtotal').textContent = `${subtotal.toFixed(2).replace('.', ',')} €`;
+      const deliveryRow = document.getElementById('billDeliveryRow');
+      let finalTotal = subtotal;
+
+      if (orderType === 'delivery') {
+        deliveryRow.style.display = 'flex';
+        if (subtotal >= 15.00) {
+          document.getElementById('billDeliveryFee').innerHTML = `<span style="color: #4ade80;">Kostenlos ab 15 €</span>`;
+        } else {
+          const fee = 2.50;
+          finalTotal += fee;
+          document.getElementById('billDeliveryFee').textContent = `2,50 €`;
+        }
+      } else {
+        deliveryRow.style.display = 'none';
+      }
+
+      document.getElementById('billTotal').textContent = `${finalTotal.toFixed(2).replace('.', ',')} €`;
+    }
+
+    function updateCartItemQty(index, change) {
+      if (!cart[index]) return;
+      cart[index].qty += change;
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+      renderCartUI();
+    }
+
+    function openCartDrawer() {
+      renderCartUI();
+      document.getElementById('cartModalBackdrop').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCartDrawer(e) {
+      if (e && e.target !== e.currentTarget && !e.target.closest('.modal-btn-close')) return;
+      document.getElementById('cartModalBackdrop').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function setOrderType(type) {
+      orderType = type;
+      document.getElementById('typePickup').classList.toggle('active', type === 'pickup');
+      document.getElementById('typeDelivery').classList.toggle('active', type === 'delivery');
+      document.getElementById('typeDinein').classList.toggle('active', type === 'dinein');
+
+      const placeholderMap = {
+        'pickup': 'Gewünschte Abholzeit (z. B. in 20 Min.)',
+        'delivery': 'Lieferadresse in Mayen (Straße & Hausnummer)',
+        'dinein': 'Tischnummer im Gastraum'
+      };
+      document.getElementById('custTableOrAddress').placeholder = placeholderMap[type] || 'Angaben';
+      renderCartUI();
+    }
+
+    // ----------------------------------------------------
+    // WhatsApp Order Link Generator (Zero Emojis, Clean Facts)
+    // ----------------------------------------------------
+    function sendWhatsappOrder(e) {
+      e.preventDefault();
+      if (cart.length === 0) {
+        alert('Ihr Bestellzettel ist noch leer. Bitte wählen Sie zuerst Gerichte aus.');
+        return;
+      }
+
+      const name = document.getElementById('custName').value.trim() || 'Gast';
+      const phone = document.getElementById('custPhone').value.trim() || 'Nicht angegeben';
+      const addressOrTime = document.getElementById('custTableOrAddress').value.trim() ||
+                           (orderType === 'pickup' ? 'Schnellstmöglich' : orderType === 'delivery' ? 'Stadtgebiet Mayen' : 'Gastraum Tisch');
+
+      let typeStr = 'Selbstabholung';
+      if (orderType === 'delivery') typeStr = 'Lieferung';
+      if (orderType === 'dinein') typeStr = 'Vor Ort am Tisch';
+
+      let msg = `Guten Tag Ristorante Pizzeria Pugliese Mayen,
+`;
+      msg += `ich möchte gerne folgende Vorbestellung aufgeben:
+
+`;
+
+      let sum = 0;
+      cart.forEach((item) => {
+        const itemSum = item.singlePrice * item.qty;
+        sum += itemSum;
+        msg += `*${item.qty}x ${item.title}*
+`;
+        if (item.size) msg += `  - Größe: ${item.size}
+`;
+        if (item.sauce) msg += `  - Sauce: ${item.sauce}
+`;
+        if (item.extras && item.extras.length > 0) msg += `  - Extras: ${item.extras.join(', ')}
+`;
+        if (item.notes) msg += `  - Anmerkung: ${item.notes}
+`;
+        msg += `  Einzelpreis: ${itemSum.toFixed(2).replace('.', ',')} €
+
+`;
+      });
+
+      if (orderType === 'delivery' && sum < 15) {
+        sum += 2.50;
+        msg += `Lieferpauschale: 2,50 €
+`;
+      }
+
+      msg += `*Gesamtsumme:* ${sum.toFixed(2).replace('.', ',')} €
+`;
+      msg += `*Bestellart:* ${typeStr}
+`;
+      msg += `*Name:* ${name}
+`;
+      msg += `*Telefon:* ${phone}
+`;
+      msg += `*Adresse / Abholzeit:* ${addressOrTime}
+
+`;
+      msg += `(Gesendet über die Speisekarte Ristorante Pizzeria Pugliese Mayen)`;
+
+      const encoded = encodeURIComponent(msg);
+      const waUrl = `https://wa.me/4915123456789?text=${encoded}`;
+      window.open(waUrl, '_blank');
+    }
+
+    // ----------------------------------------------------
+    // QR Code Modal
+    // ----------------------------------------------------
+    function openQrModal() {
+      document.getElementById('qrModalBackdrop').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeQrModal(e) {
+      if (e && e.target !== e.currentTarget && !e.target.closest('.modal-btn-close') && !e.target.classList.contains('btn-magnetic')) return;
+      document.getElementById('qrModalBackdrop').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // ----------------------------------------------------
+    // Legal Modal (Impressum / Datenschutz)
+    // ----------------------------------------------------
+    function openLegalModal(type) {
+      const title = document.getElementById('legalModalTitle');
+      const content = document.getElementById('legalModalContent');
+
+      if (type === 'impressum') {
+        title.textContent = 'Impressum';
+        content.innerHTML = `
+          <h4 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.1rem; margin-top: 8px;">Angaben gemäß § 5 TMG</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6;"><strong>Ristorante Pizzeria Pugliese Mayen</strong><br>
+          Inhaber: Muster Gastronom<br>
+          Auf'm Hügelchen<br>
+          56727 Mayen<br>
+          Deutschland</p>
+
+          <h4 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.1rem; margin-top: 14px;">Kontakt</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6;">Telefon: 0160 / 9140 1318<br>
+          E-Mail: info@pizzeria-pugliese-mayen.de<br>
+          WhatsApp: +49 151 23456789</p>
+
+          <h4 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.1rem; margin-top: 14px;">Umsatzsteuer-ID</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6;">Umsatzsteuer-Identifikationsnummer gemäß § 27 a UStG:<br>
+          DE 999 888 777 (Muster)</p>
+
+          <h4 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.1rem; margin-top: 14px;">Aufsichtsbehörde</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6;">Kreisverwaltung Mayen-Koblenz / Ordnungsamt / Lebensmittelüberwachung</p>
+
+          <h4 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.1rem; margin-top: 14px;">EU-Streitschlichtung</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6;">Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr/.</p>
+        `;
+      } else {
+        title.textContent = 'Datenschutzerklärung';
+        content.innerHTML = `
+          <h4 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.1rem; margin-top: 8px;">1. Datenschutz auf einen Blick</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6;">Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese digitale Speisekarte erhebt beim bloßen Betrachten keine personenbezogenen Tracking-Profile.</p>
+
+          <h4 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.1rem; margin-top: 14px;">2. Vorbestellung per WhatsApp</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6;">Wenn Sie die Vorbestellung per WhatsApp nutzen, werden die von Ihnen im Formular eingegebenen Bestelldaten (Name, Telefonnummer, Adresse und ausgewählte Gerichte) in die WhatsApp-Anwendung übertragen. Hierbei gelten die Datenschutzrichtlinien der WhatsApp Ireland Limited.</p>
+
+          <h4 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.1rem; margin-top: 14px;">3. Hosting & Server-Logs</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6;">Beim Aufruf dieser Website erfasst der Webserver standardmäßig die IP-Adresse, Datum, Uhrzeit und Browserversion zur Sicherstellung des störungsfreien Betriebs.</p>
+
+          <h4 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.1rem; margin-top: 14px;">4. Ihre Rechte</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6;">Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten sowie ein Recht auf Berichtigung oder Löschung.</p>
+        `;
+      }
+
+      document.getElementById('legalModalBackdrop').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLegalModal(e) {
+      if (e && e.target !== e.currentTarget && !e.target.closest('.modal-btn-close') && !e.target.classList.contains('btn-modal-add-cart')) return;
+      document.getElementById('legalModalBackdrop').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // ----------------------------------------------------
+    // Search & Filter Logic
+    // ----------------------------------------------------
+    function handleSearch(query) {
+      const clearBtn = document.getElementById('searchClearBtn');
+      if (query.trim().length > 0) {
+        clearBtn.classList.add('visible');
+      } else {
+        clearBtn.classList.remove('visible');
+      }
+      filterDishes();
+    }
+
+    function clearSearch() {
+      document.getElementById('menuSearchInput').value = '';
+      document.getElementById('searchClearBtn').classList.remove('visible');
+      filterDishes();
+    }
+
+    function setTagFilter(tag, elem) {
+      currentTagFilter = tag;
+      document.querySelectorAll('.diet-filter-chip').forEach(p => p.classList.remove('active'));
+      elem.classList.add('active');
+      filterDishes();
+    }
+
+    function filterDishes() {
+      const q = document.getElementById('menuSearchInput').value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.dish-card-item');
+      let totalVisible = 0;
+
+      cards.forEach(card => {
+        const searchText = (card.getAttribute('data-search') || '') + ' ' + (card.querySelector('.dish-title-h3').textContent || '');
+        const cardTags = card.getAttribute('data-tags') || '';
+
+        const matchesQuery = q === '' || searchText.toLowerCase().includes(q);
+        const matchesTag = currentTagFilter === 'all' || cardTags.includes(currentTagFilter);
+
+        if (matchesQuery && matchesTag) {
+          card.style.display = 'flex';
+          totalVisible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Show/hide category groups
+      document.querySelectorAll('.category-group').forEach(sec => {
+        const visibleInSec = sec.querySelectorAll('.dish-card-item[style*="display: flex"]').length;
+        if (q !== '' || currentTagFilter !== 'all') {
+          sec.style.display = visibleInSec > 0 ? 'block' : 'none';
+        } else {
+          sec.style.display = 'block';
+        }
+      });
+
+      const noResults = document.getElementById('noResultsState');
+      if (totalVisible === 0) {
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+      }
+    }
+
+    // ----------------------------------------------------
+    // SCENE 1 & SCENE 2: SCROLL-DRIVEN ENGINE (rAF & CSS Vars)
+    // ----------------------------------------------------
+    (function initScrollEngine() {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Elements
+      const progressLine = document.getElementById('scrollProgressLine');
+      const heroRunway = document.getElementById('heroRunway');
+      const heroSticky = document.getElementById('heroStickyFrame');
+      const heroBgPhoto = document.getElementById('heroBgPhoto');
+      const heroWords = document.querySelectorAll('.hero-word');
+      const totalWords = heroWords.length;
+
+      // Carousel Elements
+      const sceneRunway = document.getElementById('sceneCarouselRunway');
+      const sceneSticky = document.getElementById('sceneCarouselSticky');
+      const track = document.getElementById('horizontalTrack');
+      const trackFill = document.getElementById('trackProgressFill');
+
+      let ticking = false;
+
+      function onScrollFrame() {
+        const pageScroll = window.scrollY;
+        const totalDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        // 1. Global Scroll Progress Line
+        if (progressLine && totalDocHeight > 0) {
+          const globalProgress = Math.min(1, Math.max(0, pageScroll / totalDocHeight));
+          progressLine.style.transform = `scaleX(${globalProgress})`;
+        }
+
+        // 2. Scene 1: Hero Parallax, Zoom & Word-by-Word Reveal
+        if (!prefersReduced && heroRunway && heroSticky && heroBgPhoto) {
+          const heroRect = heroRunway.getBoundingClientRect();
+          const heroMaxScroll = heroRunway.offsetHeight - heroSticky.offsetHeight;
+
+          if (heroMaxScroll > 0) {
+            const heroDistance = -heroRect.top;
+            const heroProgress = Math.min(1, Math.max(0, heroDistance / heroMaxScroll));
+
+            // Zoom hero photo: 1.0 -> 1.18
+            const scale = 1.0 + heroProgress * 0.18;
+            heroBgPhoto.style.transform = `scale(${scale})`;
+
+            // Stagger word reveal
+            heroWords.forEach((word) => {
+              const idx = parseInt(word.style.getPropertyValue('--w-idx') || 0, 10);
+              const start = (idx / totalWords) * 0.55;
+              const span = 0.22;
+              const wordP = Math.min(1, Math.max(0, (heroProgress - start) / span));
+              word.style.setProperty('--w-p', wordP.toFixed(3));
+            });
+          }
+        }
+
+        // 3. Scene 2: Pinned Horizontal Dish Carousel
+        if (!prefersReduced && sceneRunway && sceneSticky && track) {
+          const runwayRect = sceneRunway.getBoundingClientRect();
+          const runwayMaxScroll = sceneRunway.offsetHeight - sceneSticky.offsetHeight;
+
+          if (runwayMaxScroll > 0) {
+            const distance = -runwayRect.top;
+            const carouselP = Math.min(1, Math.max(0, distance / runwayMaxScroll));
+
+            const containerWidth = track.parentElement.offsetWidth;
+            const trackWidth = track.scrollWidth;
+            const maxShift = Math.max(0, trackWidth - containerWidth + 60);
+
+            const shift = carouselP * maxShift;
+            track.style.transform = `translate3d(-${shift.toFixed(1)}px, 0, 0)`;
+
+            if (trackFill) {
+              trackFill.style.width = `${(carouselP * 100).toFixed(1)}%`;
+            }
+          }
+        }
+
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(onScrollFrame);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // Trigger initial layout
+      onScrollFrame();
+    })();
+
+    // ----------------------------------------------------
+    // Category Chips Scrollspy & Header Active Link
+    // ----------------------------------------------------
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 140;
+      const groups = document.querySelectorAll('.category-group');
+      const pills = document.querySelectorAll('.cat-nav-pill');
+
+      groups.forEach(sec => {
+        if (sec.offsetTop <= scrollPos && (sec.offsetTop + sec.offsetHeight) > scrollPos) {
+          const catId = sec.getAttribute('data-category');
+          pills.forEach(pill => {
+            if (pill.getAttribute('data-cat') === catId) {
+              pill.classList.add('active');
+              pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else {
+              pill.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, { passive: true });
+
+    // ----------------------------------------------------
+    // Magnetic Buttons Interaction (Desktop Pointer: Fine)
+    // ----------------------------------------------------
+    (function initMagneticButtons() {
+      if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.btn-magnetic').forEach(btn => {
+          btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+          });
+          btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0px, 0px)';
+          });
+        });
+      }
+    })();
+
+    // ----------------------------------------------------
+    // Quiet Toast Notification Helper
+    // ----------------------------------------------------
+    let toastTimer;
+    function showToast(text) {
+      const toast = document.getElementById('toastMsg');
+      const textElem = document.getElementById('toastText');
+      textElem.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2400);
+    }
+  </script>
+</body>
+</html>
